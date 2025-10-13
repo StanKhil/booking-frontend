@@ -1,12 +1,13 @@
 import { Link, Outlet } from "react-router-dom";
 import { useContext } from "react";
 import "./Layout.css";
+import AppContext from "../../../features/context/AppContext";
 
 export default function Layout() {
 //const { user } = useContext(AuthContext); // user = { fullName, login, role, isAuthenticated }
-
-const user = {fullName : "stas", login : "stas", role : "Administrator", isAuthenticated : true}
+const {user, setToken} = useContext(AppContext);
 const isAdmin = user?.role === "Administrator";
+const {serverUrl} = useContext(AppContext);
 
 return (
     <div className="d-flex flex-column min-vh-100">
@@ -15,7 +16,7 @@ return (
                 <div className="d-flex justify-content-between">
                     <div className="d-flex mt-1">
                         <Link className="navbar-brand" to="/">
-                            <img className="header-logo" src="/resources/images/text.svg" alt="logo" />
+                            <img className="header-logo" src={`${serverUrl}/Storage/Item/text.svg`} alt="logo" />
                         </Link>
                     </div>
 
@@ -26,7 +27,7 @@ return (
                             {user?.isAuthenticated ? (
                                 <Link to={`/user/${user.login}`}>
                                     <div className="login-icon mx-2">{user.fullName?.[0]}</div>
-                                    {/* <span className="header-user-name">{user.fullName}</span> */}
+                                    <span className="header-user-name">{user.fullName}</span>
                                 </Link>
                             ) : (
                                 <>

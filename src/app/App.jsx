@@ -5,15 +5,16 @@ import { useState, useEffect } from 'react';
 import AppContext from '../features/context/AppContext';
 import Layout from './ui/layout/Lyout';
 import Base64 from '../shared/base64/Base64';
+import Login from '../pages/login/Login';
 
 const tokenStorageKey = "react-token";
-const serverUrl = "https://localhost:7072";
+const serverUrl = import.meta.env.VITE_SERVER_URL;
 
 function App() {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
 
-  const request = (url, conf) => new Promise((resolve,reject) => 
+ const request = (url, conf) => new Promise((resolve,reject) => 
   {
     if(url.startsWith('/')){
       url= serverUrl + url;
@@ -29,7 +30,7 @@ function App() {
         }
       }
       
-    }
+    } 
     fetch(url, conf)
         .then(r => r.json())
         .then(j => {
@@ -63,6 +64,7 @@ function App() {
       }
       
     }
+
   }, []);
 
   useEffect(() => {
@@ -78,11 +80,12 @@ function App() {
   
 
   return <>
-  <AppContext.Provider value={ {request, user, token, setToken} }>
+  <AppContext.Provider value={ {request, user, token, setToken, serverUrl} }>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />} >
           <Route index element={<Home />} />
+          <Route path='login' element={<Login/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

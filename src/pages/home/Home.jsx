@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import AppContext from "../../features/context/AppContext";
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState("cultural");
+  const {serverUrl} = useContext(AppContext);
+
 
   const handleTabClick = (tab) => setActiveTab(tab);
 
   return (
     <main className="container my-5">
-      {/* === Offers === */}
       <section className="mb-5">
         <h2 className="section-title">Offers</h2>
         <p className="mb-4">Promotions, deals and special offers for you</p>
@@ -48,7 +50,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* === Trip planner === */}
       <section className="mb-5">
         <h2 className="section-title">Quick and easy trip planner</h2>
         <p className="mb-4">Pick a vibe and explore the top destinations in Ukraine</p>
@@ -79,12 +80,12 @@ export default function HomePage() {
         {activeTab === "Cultural Exploration" && (
           <div className="row g-4">
             {[
-              { city: "Poltava", img: "/resources/images/Countries/Ukraine/poltava.jpg", dist: "303 km" },
-              { city: "Sumy", img: "/resources/images/Countries/Ukraine/sumy.jpg", dist: "305 km" },
-              { city: "Dnipro", img: "/resources/images/Countries/Ukraine/dnipro.jpg", dist: "394 km" },
-              { city: "Kharkiv", img: "/resources/images/Countries/Ukraine/kharkiv.jpg", dist: "409 km" },
-              { city: "Chernivtsi", img: "/resources/images/Countries/Ukraine/chernivtsi.jpg", dist: "410 km" },
-              { city: "Ivano-Frankivsk", img: "/resources/images/Countries/Ukraine/ivanoFr.jpg", dist: "451 km" },
+              { city: "Poltava", img: `${serverUrl}/Storage/Item/poltava.jpg`, dist: "303 km" },
+              { city: "Sumy", img:`${serverUrl}/Storage/Item/sumy.jpg`, dist: "305 km" },
+              { city: "Dnipro", img: `${serverUrl}/Storage/Item/dnipro.jpg`, dist: "394 km" },
+              { city: "Kharkiv", img: `${serverUrl}/Storage/Item/kharkiv.jpg`, dist: "409 km" },
+              { city: "Chernivtsi", img: `${serverUrl}/Storage/Item/chernivtsi.jpg`, dist: "410 km" },
+              { city: "Ivano-Frankivsk", img: `${serverUrl}/Storage/Item/ivanoFr.jpg`, dist: "451 km" },
             ].map((place) => (
               <div className="col-md-4 col-lg-2" key={place.city}>
                 <div className="card card-custom">
@@ -100,15 +101,14 @@ export default function HomePage() {
         )}
       </section>
 
-      {/* === Property types === */}
       <section className="mb-5">
         <h2 className="section-title">Browse by property type</h2>
         <div className="row g-4">
           {[
-            { type: "Hotels", img: "/resources/images/RealtyTypes/hotels.jpeg", available: 276 },
-            { type: "Apartments", img: "/resources/images/RealtyTypes/apartments.jpeg", available: 664 },
-            { type: "Villas", img: "/resources/images/RealtyTypes/villas.jpeg", available: 1 },
-            { type: "Holiday homes", img: "/resources/images/RealtyTypes/holidayHomes.jpeg", available: 2 },
+            { type: "Hotels", img: `${serverUrl}/Storage/Item/hotels.jpeg`, available: 276 },
+            { type: "Apartments", img: `${serverUrl}/Storage/Item/apartments.jpeg`, available: 664 },
+            { type: "Villas", img: `${serverUrl}/Storage/Item/villas.jpeg`, available: 1 },
+            { type: "Holiday homes", img: `${serverUrl}/Storage/Item/holidayHomes.jpeg`, available: 2 },
           ].map((item) => (
             <div className="col-md-6 col-lg-3" key={item.type}>
               <div className="card card-custom">
@@ -124,7 +124,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* === Popular destinations === */}
       <section className="mb-5">
         <h2 className="section-title">Popular with travellers from Ukraine</h2>
         <ul className="nav nav-pills mb-3">
