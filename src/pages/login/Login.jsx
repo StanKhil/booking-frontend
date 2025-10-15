@@ -1,11 +1,13 @@
 import { useContext, useState } from "react";
 import AppContext from "../../features/context/AppContext";
 import Base64 from "../../shared/base64/Base64";
+import { useNavigate } from "react-router";
 
 export default function Login() {
   const [form, setForm] = useState({ login: "", password: "" });
   const [error, setError] = useState("");
-  const { request, setToken } = useContext(AppContext);
+  const { request, setToken, setUser } = useContext(AppContext);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -35,9 +37,11 @@ export default function Login() {
         },
       });
 
+      console.log(data)
+
       setToken(data);
       setError("");
-      console.log("Logged in:", data);
+      navigate("/");
     } catch (err) {
       console.error(err);
       setError("Login failed. Please check your credentials.");

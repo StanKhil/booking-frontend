@@ -6,6 +6,7 @@ import AppContext from '../features/context/AppContext';
 import Layout from './ui/layout/Lyout';
 import Base64 from '../shared/base64/Base64';
 import Login from '../pages/login/Login';
+import Register from '../pages/register/Register';
 
 const tokenStorageKey = "react-token";
 const serverUrl = import.meta.env.VITE_SERVER_URL;
@@ -80,12 +81,13 @@ function App() {
   
 
   return <>
-  <AppContext.Provider value={ {request, user, token, setToken, serverUrl} }>
+  <AppContext.Provider value={ {request, user, setUser, token, setToken, serverUrl} }>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />} >
           <Route index element={<Home />} />
           <Route path='login' element={<Login/>}/>
+          <Route path='register' element={<Register/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
