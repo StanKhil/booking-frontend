@@ -33,7 +33,7 @@ export default function Layout() {
 
                                     {user && userLogin ? (
                                         <>
-                                            <Link to={`/user/${userLogin}`} className="text-decoration-none d-flex align-items-center">
+                                            <Link to={`/profile/${userLogin}`} className="text-decoration-none d-flex align-items-center">
                                                 <div className="login-icon mx-2">{userLogin[0]}</div>
                                                 {/* <span className="header-user-name">{userLogin}</span>  */}
                                             </Link>
