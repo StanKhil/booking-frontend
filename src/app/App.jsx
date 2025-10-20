@@ -8,6 +8,7 @@ import Base64 from '../shared/base64/Base64';
 import Login from '../pages/login/Login';
 import Register from '../pages/register/Register';
 import Profile from '../pages/profile/Profile';
+import Realties from '../pages/realties/Realties';
 
 const tokenStorageKey = "react-token";
 const serverUrl = import.meta.env.VITE_SERVER_URL;
@@ -90,6 +91,7 @@ function App() {
           <Route path='login' element={<Login/>}/>
           <Route path='register' element={<Register/>}/>
           <Route path='profile/:login' element={<Profile/>}/>
+          <Route path='realties' element={<Realties/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

@@ -58,7 +58,7 @@ export default function Layout() {
                     <div className="container-fluid">
                         <ul className="navbar-nav d-flex flex-row align-items-center mb-0">
                         <li className="nav-item mx-3">
-                            <Link className="nav-link d-flex align-items-center" to="/">
+                            <Link className="nav-link d-flex align-items-center" to="/realties">
                             <i className="bi bi-house me-1"></i> Stays
                             </Link>
                         </li>
