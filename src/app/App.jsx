@@ -9,6 +9,7 @@ import Login from '../pages/login/Login';
 import Register from '../pages/register/Register';
 import Profile from '../pages/profile/Profile';
 import Realties from '../pages/realties/Realties';
+import Realty from '../pages/realty/Realty';
 
 const tokenStorageKey = "react-token";
 const serverUrl = import.meta.env.VITE_SERVER_URL;
@@ -92,6 +93,7 @@ function App() {
           <Route path='register' element={<Register/>}/>
           <Route path='profile/:login' element={<Profile/>}/>
           <Route path='realties' element={<Realties/>}/>
+          <Route path='realty/:id' element={<Realty/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
