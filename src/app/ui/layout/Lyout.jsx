@@ -67,11 +67,13 @@ export default function Layout() {
                             <i className="bi bi-search me-1"></i> Search
                             </Link>
                         </li>
-                        <li className="nav-item mx-3">
-                            <Link className="nav-link d-flex align-items-center" to="/bookings">
+                        {
+                            user && userLogin &&
+                            <li className="nav-item mx-3">
+                            <Link className="nav-link d-flex align-items-center" to={`/bookings/${userLogin}`}>
                             <i className="bi bi-journal-bookmark me-1"></i> Bookings & Trips
                             </Link>
-                        </li>
+                        </li>}
                         {isAdmin && (
                             <li className="nav-item mx-3">
                             <Link className="nav-link d-flex align-items-center" to="/admin">
