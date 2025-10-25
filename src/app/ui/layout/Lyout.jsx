@@ -5,7 +5,7 @@ import AppContext from "../../../features/context/AppContext";
 
 export default function Layout() {
     const {user, setToken} = useContext(AppContext);
-    const isAdmin = user?.role === "Administrator";
+    const isAdmin = user?.RoleId === "Administrator";
     const {serverUrl} = useContext(AppContext);
     const userLogin = user?.Login || "";
 
