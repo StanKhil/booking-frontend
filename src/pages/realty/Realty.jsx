@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import AppContext from "../../features/context/AppContext";
 import { useParams } from "react-router-dom";
+import Feedback from "./ui/Feedback";
 
 export default function Realty(){
     const [realty, setRealty] = useState(null);
@@ -55,7 +56,6 @@ export default function Realty(){
         }
     };
 
-
     return (
         <>
             {realty && (
@@ -63,6 +63,10 @@ export default function Realty(){
                     <h2>{realty.title}</h2>
                     <p>{realty.description}</p>
                     <p>Price: {realty.price}</p>
+                    {
+                        realty.accRates &&
+                        <p>Rate: {realty.accRates.avgRate}</p>
+                    }
 
                     {realty.images?.length > 0 &&
                         realty.images.map(img => (
@@ -103,6 +107,15 @@ export default function Realty(){
                         </button>
 
                         {message && <div className="mt-3 alert alert-info">{message}</div>}
+                    </div>
+
+                    <div className="mt-3">
+                        <h3>Feedbacks</h3>
+                        {realty.feedbacks?.length > 0 ? (
+                            realty.feedbacks.map(fb => (
+                                <Feedback key={fb.id} id={fb.id} />
+                            ))
+                        ) : (<p>No feedbacks available.</p>)}
                     </div>
                 </div>
             )}
