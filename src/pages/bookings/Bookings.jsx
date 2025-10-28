@@ -9,7 +9,6 @@ export default function Bookings(){
     const [bookings, setBookings] = useState([]);
 
     useEffect(() => {
-        console.log('Fetching bookings for', login);
         request('/api/user/' + login)
         .then(user => setBookings(user.bookingItems))
         .catch(e => alert(e.status.message));

@@ -37,8 +37,6 @@ export default function Login() {
         },
       });
 
-      console.log(data)
-
       setToken(data);
       setError("");
       navigate("/");

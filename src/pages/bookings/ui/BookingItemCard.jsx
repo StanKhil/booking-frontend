@@ -17,7 +17,19 @@ export default function BookingItemCard({id}){
 
     const onAddFeedback = () => {  
         setAddingFeedback(true);
-    }
+    };
+
+    const onDeleteBooking = () => {
+        request('/api/booking-item/' + booking.id, {
+            method: 'DELETE'
+        })
+        .then(() => {
+            alert('Booking deleted successfully');
+            setBooking(null);
+        })
+        .catch(e => alert(e.status.message));
+        
+    };
 
      const onSubmitFeedback = async () => {
         setMessage("");
@@ -74,6 +86,7 @@ export default function BookingItemCard({id}){
                 <p>To: {new Date(booking.endDate).toLocaleDateString()}</p>
                 <p>Realty: {booking.realty.name}</p>
                 <button onClick={onAddFeedback} className="btn btn-primary">Add Feedback</button>
+                <button onClick={onDeleteBooking} className="btn btn-danger mx-2">Delete Booking</button>
             </div>
         }
         {

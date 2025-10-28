@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import AppContext from "../../../features/context/AppContext";
 
 export default function Feedback({id}) {
-    const {request} = useContext(AppContext);
+    const {request, user} = useContext(AppContext);
     const [feedback, setFeedback] = useState(null);
 
     useEffect(() => {
@@ -10,6 +10,17 @@ export default function Feedback({id}) {
         .then(r => setFeedback(r))
         .catch(e => alert(e.status.message));
     }, [id]);
+
+    const onDeleteFeedback = () => {
+        request('/api/feedback/' + feedback.id, {
+            method: 'DELETE'
+        })
+        .then(() => {
+            alert('Feedback deleted successfully');
+            setFeedback(null);
+        })
+        .catch(e => alert(e.status.message));
+    };
 
     return <>
         {
@@ -20,6 +31,10 @@ export default function Feedback({id}) {
                 <p>Comment: {feedback.text}</p>
                 <p>User: {feedback.firstName + " " + feedback.lastNme}</p>
                 <p>Login: {feedback.login}</p>
+                {
+                    feedback.login == user?.Login &&
+                    <button className="btn btn-danger" onClick={onDeleteFeedback}>Delete Feedback</button>
+                }
             </div>
         }
     </>
