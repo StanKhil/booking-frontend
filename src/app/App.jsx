@@ -1,6 +1,7 @@
 import { Route, useRouteLoaderData } from 'react-router-dom'
 import { BrowserRouter, Routes } from 'react-router-dom'
 import Home from '../pages/home/Home'
+import Search from '../pages/search/Search'
 import { useState, useEffect } from 'react';
 import AppContext from '../features/context/AppContext';
 import Layout from './ui/layout/Lyout';
@@ -21,16 +22,16 @@ function App() {
 
  const request = (url, conf) => new Promise((resolve,reject) => 
   {
-    if(url.startsWith('/')){
-      url= serverUrl + url;
-      if(token){
-        if(typeof conf == 'undefined'){
-        conf = {};
+    if(url.startsWith('/')) {
+      url = serverUrl + url;
+      if(token) {
+        if(typeof conf == 'undefined') {
+          conf = {};
         }
-        if(typeof conf.headers == 'undefined'){
+        if(typeof conf.headers == 'undefined') {
           conf.headers = {};
         }
-        if(typeof conf.headers["Authorization"] == 'undefined'){
+        if(typeof conf.headers["Authorization"] == 'undefined'){ 
           conf.headers["Authorization"] = "Bearer " + token;
         }
       }
@@ -54,13 +55,13 @@ function App() {
 
   useEffect(() => {
     const storedToken = localStorage.getItem(tokenStorageKey);
-    if(storedToken){
+    if(storedToken) {
       const payload = Base64.jwtDecodePayload(storedToken);
       const exp = new Date(payload.Exp.toString().length == 13
         ? Number(payload.Exp)
         : Number(payload.Exp) * 1000);
       const now = new Date();
-      if(exp < now){
+      if(exp < now) {
         localStorage.removeItem(tokenStorageKey);
       }
       else{
@@ -90,6 +91,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />} >
           <Route index element={<Home />} />
+          <Route path="/search" element={<Search/>}/>
           <Route path='login' element={<Login/>}/>
           <Route path='register' element={<Register/>}/>
           <Route path='profile/:login' element={<Profile/>}/>

@@ -29,7 +29,7 @@ export default function Layout() {
                         <div>
                             <nav className="navbar navbar-expand-sm navbar-toggleable-sm navbar-light">
                                 <div className="container-fluid">
-                                    <button className="btn btn-warning">List your property</button>
+                                    <button className="list-property-button">List your property</button>
 
                                     {user && userLogin ? (
                                         <>
@@ -41,10 +41,10 @@ export default function Layout() {
                                         </>
                                     ) : (
                                         <>
-                                            <Link className="btn btn-primary mx-2" to="/register">
+                                            <Link className="btn btn-outline-light mx-2" to="/register">
                                                 Register
                                             </Link>
-                                            <Link className="btn btn-primary" to="/login">
+                                            <Link className="btn btn-outline-light" to="/login">
                                                 Sign In
                                             </Link>
                                         </>
@@ -57,30 +57,32 @@ export default function Layout() {
                     <nav className="navbar navbar-expand-lg tab-nav">
                     <div className="container-fluid">
                         <ul className="navbar-nav d-flex flex-row align-items-center mb-0">
-                        <li className="nav-item mx-3">
-                            <Link className="nav-link d-flex align-items-center" to="/realties">
-                            <i className="bi bi-house me-1"></i> Stays
-                            </Link>
-                        </li>
-                        <li className="nav-item mx-3">
-                            <Link className="nav-link d-flex align-items-center" to="/search">
-                            <i className="bi bi-search me-1"></i> Search
-                            </Link>
-                        </li>
-                        {
-                            user && userLogin &&
                             <li className="nav-item mx-3">
-                            <Link className="nav-link d-flex align-items-center" to={`/bookings/${userLogin}`}>
-                            <i className="bi bi-journal-bookmark me-1"></i> Bookings & Trips
-                            </Link>
-                        </li>}
-                        {isAdmin && (
-                            <li className="nav-item mx-3">
-                            <Link className="nav-link d-flex align-items-center" to="/admin">
-                                <i className="bi bi-feather me-1"></i> Administrator
-                            </Link>
+                                <Link className="nav-link d-flex align-items-center" to="/">
+                                    <i className="bi bi-house me-1"></i> Stays
+                                </Link>
                             </li>
-                        )}
+                            <li className="nav-item mx-3">
+                                <Link className="nav-link d-flex align-items-center" to="/search">
+                                    <i className="bi bi-search me-1"></i> Search
+                                </Link>
+                            </li>
+                            {
+                                user && userLogin &&
+                                <li className="nav-item mx-3">
+                                    <Link className="nav-link d-flex align-items-center" to={`/bookings/${userLogin}`}>
+                                        <i className="bi bi-journal-bookmark me-1"></i> Bookings & Trips
+                                    </Link>
+                            </li>
+                            }
+                            {
+                            isAdmin && (
+                                <li className="nav-item mx-3">
+                                    <Link className="nav-link d-flex align-items-center" to="/admin">
+                                        <i className="bi bi-feather me-1"></i> Administrator
+                                    </Link>
+                                </li>
+                            )}
                         </ul>
                     </div>
                     </nav>
@@ -88,7 +90,7 @@ export default function Layout() {
                 </div>
 
                 <div id="header-bottom">
-                    {document.title === "Booking.com" ? (
+                    {document.title === "Booking" ? (
                         <div className="container header-banner">
                             <h1>
                                 <span>Find your next stay</span>

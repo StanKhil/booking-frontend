@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
+import "./ui/Home.css"
 import AppContext from "../../features/context/AppContext";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState("cultural");
@@ -19,9 +21,7 @@ export default function HomePage() {
               <div className="flex-grow-1">
                 <h3 className="card-title fw-bold">Quick escape, quality time</h3>
                 <p className="card-text">Save up to 20% with a Getaway Deal</p>
-                <a href="#" className="btn btn-primary-booking rounded-pill mt-3">
-                  Save on stays
-                </a>
+                <Link href="#" className="btn btn-primary rounded-pill mt-3">Save on stays</Link>
               </div>
               <img
                 src="https://placehold.co/150x150/e0f7fa/003580?text=Offer"
@@ -36,9 +36,9 @@ export default function HomePage() {
               <div className="flex-grow-1">
                 <h3 className="card-title fw-bold">Live the dream in a holiday home</h3>
                 <p className="card-text">Choose from houses, villas, chalets and more</p>
-                <a href="#" className="btn btn-primary-booking rounded-pill mt-3">
+                <Link href="#" className="btn btn-primary rounded-pill mt-3">
                   Book yours
-                </a>
+                </Link>
               </div>
               <img
                 src="https://placehold.co/150x150/fff3e0/003580?text=Home"
@@ -54,8 +54,31 @@ export default function HomePage() {
         <h2 className="section-title">Quick and easy trip planner</h2>
         <p className="mb-4">Pick a vibe and explore the top destinations in Ukraine</p>
 
-        <ul className="nav nav-pills mb-3 justify-content-center">
-          {[
+        <ul className="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+          <li className="nav-item" role="presentation">
+              <button className="nav-link active rounded-pill me-2 btn-outline-primary" id="pills-cultural-tab" data-bs-toggle="pill" data-bs-target="#pills-cultural" type="button" role="tab" aria-controls="pills-cultural" aria-selected="true">Cultural Exploration</button>
+          </li>
+          <li className="nav-item" role="presentation">
+              <button className="nav-link rounded-pill me-2 btn-outline-primary" id="pills-festivals-tab" data-bs-toggle="pill" data-bs-target="#pills-festivals" type="button" role="tab" aria-controls="pills-festivals" aria-selected="false">Festivals</button>
+          </li>
+          <li className="nav-item" role="presentation">
+              <button className="nav-link rounded-pill me-2 btn-outline-primary" id="pills-urban-tab" data-bs-toggle="pill" data-bs-target="#pills-urban" type="button" role="tab" aria-controls="pills-urban" aria-selected="false">Urban Escapes</button>
+          </li>
+          <li className="nav-item" role="presentation">
+              <button className="nav-link rounded-pill me-2 btn-outline-primary" id="pills-nature-tab" data-bs-toggle="pill" data-bs-target="#pills-nature" type="button" role="tab" aria-controls="pills-nature" aria-selected="false">Nature & Hiking</button>
+          </li>
+          <li className="nav-item" role="presentation">
+              <button className="nav-link rounded-pill me-2 btn-outline-primary" id="pills-historical-tab" data-bs-toggle="pill" data-bs-target="#pills-historical" type="button" role="tab" aria-controls="pills-historical" aria-selected="false">Historical Tours</button>
+          </li>
+          <li className="nav-item" role="presentation">
+              <button className="nav-link rounded-pill me-2 btn-outline-primary" id="pills-wine-tab" data-bs-toggle="pill" data-bs-target="#pills-wine" type="button" role="tab" aria-controls="pills-wine" aria-selected="false">Wine & Dine</button>
+          </li>
+          <li className="nav-item" role="presentation">
+              <button className="nav-link rounded-pill btn-outline-primary" id="pills-romantic-tab" data-bs-toggle="pill" data-bs-target="#pills-romantic" type="button" role="tab" aria-controls="pills-romantic" aria-selected="false">Romantic Getaways</button>
+          </li>
+
+
+          {/*[
             "Cultural Exploration",
             "Festivals",
             "Urban Escapes",
@@ -63,21 +86,78 @@ export default function HomePage() {
             "Historical Tours",
             "Wine & Dine",
             "Romantic Getaways",
-          ].map((tab, index) => (
-            <li className="nav-item" key={index}>
-              <button
-                className={`nav-link rounded-pill me-2 btn-outline-primary-booking ${
-                  activeTab === tab ? "active" : ""
-                }`}
-                onClick={() => handleTabClick(tab)}
-              >
+          ].map((tab, index) => {
+            <li className="nav-item" key={index} role="presentation">
+              <button className={`nav-link rounded-pill me-2 btn-outline-primary ${ activeTab === tab ? "active" : "" }`} onClick={() => handleTabClick(tab)}>
                 {tab}
               </button>
             </li>
-          ))}
+          })*/}
         </ul>
 
-        {activeTab === "Cultural Exploration" && (
+        <div className="tab-content" id="pills-tabContent">
+          <div className="tab-pane fade show active" id="pills-cultural" role="tabpanel" aria-labelledby="pills-cultural-tab">
+              <div className="row g-4">
+                  <div className="col-md-4 col-lg-2">
+                      <div className="card card-custom">
+                          <img src="~/resources/images/Countries/Ukraine/poltava.jpg" className="card-img-top-custom" alt="Poltava"/>
+                          <div className="card-body">
+                              <h5 className="card-title fw-bold">Poltava</h5>
+                              <p className="card-text text-muted">303 km from Kyiv</p>
+                          </div>
+                      </div>
+                  </div>
+                  <div className="col-md-4 col-lg-2">
+                      <div className="card card-custom">
+                          <img src="~/resources/images/Countries/Ukraine/sumy.jpg" className="card-img-top-custom" alt="Sumy"/>
+                          <div className="card-body">
+                              <h5 className="card-title fw-bold">Sumy</h5>
+                              <p className="card-text text-muted">305 km from Kyiv</p>
+                          </div>
+                      </div>
+                  </div>
+                  <div className="col-md-4 col-lg-2">
+                      <div className="card card-custom">
+                          <img src="~/resources/images/Countries/Ukraine/dnipro.jpg" className="card-img-top-custom" alt="Dnipro"/>
+                          <div className="card-body">
+                              <h5 className="card-title fw-bold">Dnipro</h5>
+                              <p className="card-text text-muted">394 km from Kyiv</p>
+                          </div>
+                      </div>
+                  </div>
+                  <div className="col-md-4 col-lg-2">
+                      <div className="card card-custom">
+                          <img src="~/resources/images/Countries/Ukraine/kharkiv.jpg" className="card-img-top-custom" alt="Kharkiv"/>
+                          <div className="card-body">
+                              <h5 className="card-title fw-bold">Kharkiv</h5>
+                              <p className="card-text text-muted">409 km from Kyiv</p>
+                          </div>
+                      </div>
+                  </div>
+                  <div className="col-md-4 col-lg-2">
+                      <div className="card card-custom">
+                          <img src="~/resources/images/Countries/Ukraine/chernivtsi.jpg" className="card-img-top-custom" alt="Chernivtsi"/>
+                          <div className="card-body">
+                              <h5 className="card-title fw-bold">Chernivtsi</h5>
+                              <p className="card-text text-muted">410 km from Kyiv</p>
+                          </div>
+                      </div>
+                  </div>
+                  <div className="col-md-4 col-lg-2">
+                      <div className="card card-custom">
+                          <img src="~/resources/images/Countries/Ukraine/ivanoFr.jpg" className="card-img-top-custom" alt="Ivano-Frankivsk"/>
+                          <div className="card-body">
+                              <h5 className="card-title fw-bold">Ivano-Frankivsk</h5>
+                              <p className="card-text text-muted">451 km from Kyiv</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {/*@* Other tab panes would go here, structured similarly *@*/}
+      </div>
+
+        {/*activeTab === "Cultural Exploration" && (
           <div className="row g-4">
             {[
               { city: "Poltava", img: `${serverUrl}/Storage/Item/poltava.jpg`, dist: "303 km" },
@@ -98,7 +178,7 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-        )}
+        )*/}
       </section>
 
       <section className="mb-5">
@@ -154,32 +234,32 @@ export default function HomePage() {
               <div className="col" key={col}>
                 <ul className="list-unstyled">
                   <li>
-                    <a href="#" className="text-decoration-none text-dark">
+                    <Link href="#" className="text-decoration-none text-dark">
                       Kyiv hotels
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" className="text-decoration-none text-dark">
+                    <Link href="#" className="text-decoration-none text-dark">
                       Lviv hotels
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" className="text-decoration-none text-dark">
+                    <Link href="#" className="text-decoration-none text-dark">
                       Odesa hotels
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" className="text-decoration-none text-dark">
+                    <Link href="#" className="text-decoration-none text-dark">
                       Kharkiv hotels
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
             ))}
           </div>
-          <a href="#" className="text-decoration-none text-primary fw-bold mt-3 d-inline-block">
+          <Link href="#" className="text-decoration-none text-primary fw-bold mt-3 d-inline-block">
             + Show more
-          </a>
+          </Link>
         </div>
       </section>
     </main>
