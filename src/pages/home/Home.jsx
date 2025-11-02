@@ -21,7 +21,7 @@ export default function HomePage() {
               <div className="flex-grow-1">
                 <h3 className="card-title fw-bold">Quick escape, quality time</h3>
                 <p className="card-text">Save up to 20% with a Getaway Deal</p>
-                <Link href="#" className="btn btn-primary rounded-pill mt-3">Save on stays</Link>
+                <Link href="#" className="btn btn-primary-booking rounded-pill mt-3">Save on stays</Link>
               </div>
               <img
                 src="https://placehold.co/150x150/e0f7fa/003580?text=Offer"
@@ -36,7 +36,7 @@ export default function HomePage() {
               <div className="flex-grow-1">
                 <h3 className="card-title fw-bold">Live the dream in a holiday home</h3>
                 <p className="card-text">Choose from houses, villas, chalets and more</p>
-                <Link href="#" className="btn btn-primary rounded-pill mt-3">
+                <Link href="#" className="btn btn-primary-booking rounded-pill mt-3">
                   Book yours
                 </Link>
               </div>
@@ -55,130 +55,53 @@ export default function HomePage() {
         <p className="mb-4">Pick a vibe and explore the top destinations in Ukraine</p>
 
         <ul className="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
-          <li className="nav-item" role="presentation">
-              <button className="nav-link active rounded-pill me-2 btn-outline-primary" id="pills-cultural-tab" data-bs-toggle="pill" data-bs-target="#pills-cultural" type="button" role="tab" aria-controls="pills-cultural" aria-selected="true">Cultural Exploration</button>
-          </li>
-          <li className="nav-item" role="presentation">
-              <button className="nav-link rounded-pill me-2 btn-outline-primary" id="pills-festivals-tab" data-bs-toggle="pill" data-bs-target="#pills-festivals" type="button" role="tab" aria-controls="pills-festivals" aria-selected="false">Festivals</button>
-          </li>
-          <li className="nav-item" role="presentation">
-              <button className="nav-link rounded-pill me-2 btn-outline-primary" id="pills-urban-tab" data-bs-toggle="pill" data-bs-target="#pills-urban" type="button" role="tab" aria-controls="pills-urban" aria-selected="false">Urban Escapes</button>
-          </li>
-          <li className="nav-item" role="presentation">
-              <button className="nav-link rounded-pill me-2 btn-outline-primary" id="pills-nature-tab" data-bs-toggle="pill" data-bs-target="#pills-nature" type="button" role="tab" aria-controls="pills-nature" aria-selected="false">Nature & Hiking</button>
-          </li>
-          <li className="nav-item" role="presentation">
-              <button className="nav-link rounded-pill me-2 btn-outline-primary" id="pills-historical-tab" data-bs-toggle="pill" data-bs-target="#pills-historical" type="button" role="tab" aria-controls="pills-historical" aria-selected="false">Historical Tours</button>
-          </li>
-          <li className="nav-item" role="presentation">
-              <button className="nav-link rounded-pill me-2 btn-outline-primary" id="pills-wine-tab" data-bs-toggle="pill" data-bs-target="#pills-wine" type="button" role="tab" aria-controls="pills-wine" aria-selected="false">Wine & Dine</button>
-          </li>
-          <li className="nav-item" role="presentation">
-              <button className="nav-link rounded-pill btn-outline-primary" id="pills-romantic-tab" data-bs-toggle="pill" data-bs-target="#pills-romantic" type="button" role="tab" aria-controls="pills-romantic" aria-selected="false">Romantic Getaways</button>
-          </li>
-
-
-          {/*[
-            "Cultural Exploration",
-            "Festivals",
-            "Urban Escapes",
-            "Nature & Hiking",
-            "Historical Tours",
-            "Wine & Dine",
-            "Romantic Getaways",
-          ].map((tab, index) => {
-            <li className="nav-item" key={index} role="presentation">
-              <button className={`nav-link rounded-pill me-2 btn-outline-primary ${ activeTab === tab ? "active" : "" }`} onClick={() => handleTabClick(tab)}>
-                {tab}
-              </button>
-            </li>
-          })*/}
+          {
+            [ 
+              {text: "Cultural Exploration", id: "pills-cultural-tab", data: "#pills-cultural", ariaControls: "pills-cultural"},
+              {text: "Festivals", id: "pills-festivals-tab", data: "#pills-festivals", ariaControls: "pills-festivals"},
+              {text: "Urban Escapes", id: "pills-urban-tab", data: "#pills-urban", ariaControls: "pills-urban"},
+              {text: "Nature & Hiking", id: "pills-nature-tab", data: "#pills-nature", ariaControls: "pills-nature"},
+              {text: "Historical Tours", id: "pills-historical-tab", data: "#pills-historical", ariaControls: "pills-historical"},
+              {text: "Wine & Dine", id: "pills-wine-tab", data: "#pills-wine", ariaControls: "pills-wine"},
+              {text: "Romantic Getaways", id: "pills-romantic-tab", data: "#pills-romantic", ariaControls: "pills-romantic"},
+            ].map((tab, index) => {
+              return (<li className="nav-item" key={index} role="presentation">
+                <button className={index == 0 ? "nav-link active rounded-pill me-2 btn-outline-primary-booking" : "nav-link rounded-pill btn-outline-primary-booking"} 
+                  id={tab.id} data-bs-toggle="pill" data-bs-target={tab.data} type="button" role="tab" aria-controls={tab.ariaControls} aria-selected={index == 0 ? "true" : "false"}>{tab.text}</button>
+              </li>)
+            })
+          }
         </ul>
 
-        <div className="tab-content" id="pills-tabContent">
-          <div className="tab-pane fade show active" id="pills-cultural" role="tabpanel" aria-labelledby="pills-cultural-tab">
-              <div className="row g-4">
-                  <div className="col-md-4 col-lg-2">
-                      <div className="card card-custom">
-                          <img src="~/resources/images/Countries/Ukraine/poltava.jpg" className="card-img-top-custom" alt="Poltava"/>
-                          <div className="card-body">
-                              <h5 className="card-title fw-bold">Poltava</h5>
-                              <p className="card-text text-muted">303 km from Kyiv</p>
+          <div className="tab-content" id="pills-tabContent">
+            <div className="tab-pane fade show active" id="pills-cultural" role="tabpanel" aria-labelledby="pills-cultural-tab">
+                <div className="row g-4">
+                  {
+                    [
+                      {town: "Poltava", src: "poltava.jpg", distance: "303 km from Kyiv"},
+                      {town: "Sumy", src: "sumy.jpg", distance: "305 km from Kyiv"},
+                      {town: "Dnipro", src: "dnipro.jpg",  distance: "394 km from Kyiv"},
+                      {town: "Kharkiv", src: "kharkiv.jpg",  distance: "409 km from Kyiv"},
+                      {town: "Chernivtsi", src: "chernivtsi.jpg", distance: "410 km from Kyiv"},
+                      {town: "Ivano-Frankivsk", src: "ivanoFr.jpg", distance: "451 km from Kyiv"},
+                    ].map((tab, index) => {
+                      return (
+                        <div key={index} className="col-md-4 col-lg-2">
+                        <div className="card card-custom">
+                            <img src={`${serverUrl}/Storage/Item/${tab.src}`} className="card-img-top-custom" alt={tab.town}/>
+                            <div className="card-body">
+                                <h5 className="card-title fw-bold">{tab.town}</h5>
+                                <p className="card-text text-muted">{tab.distance}</p>
+                            </div>
                           </div>
-                      </div>
-                  </div>
-                  <div className="col-md-4 col-lg-2">
-                      <div className="card card-custom">
-                          <img src="~/resources/images/Countries/Ukraine/sumy.jpg" className="card-img-top-custom" alt="Sumy"/>
-                          <div className="card-body">
-                              <h5 className="card-title fw-bold">Sumy</h5>
-                              <p className="card-text text-muted">305 km from Kyiv</p>
-                          </div>
-                      </div>
-                  </div>
-                  <div className="col-md-4 col-lg-2">
-                      <div className="card card-custom">
-                          <img src="~/resources/images/Countries/Ukraine/dnipro.jpg" className="card-img-top-custom" alt="Dnipro"/>
-                          <div className="card-body">
-                              <h5 className="card-title fw-bold">Dnipro</h5>
-                              <p className="card-text text-muted">394 km from Kyiv</p>
-                          </div>
-                      </div>
-                  </div>
-                  <div className="col-md-4 col-lg-2">
-                      <div className="card card-custom">
-                          <img src="~/resources/images/Countries/Ukraine/kharkiv.jpg" className="card-img-top-custom" alt="Kharkiv"/>
-                          <div className="card-body">
-                              <h5 className="card-title fw-bold">Kharkiv</h5>
-                              <p className="card-text text-muted">409 km from Kyiv</p>
-                          </div>
-                      </div>
-                  </div>
-                  <div className="col-md-4 col-lg-2">
-                      <div className="card card-custom">
-                          <img src="~/resources/images/Countries/Ukraine/chernivtsi.jpg" className="card-img-top-custom" alt="Chernivtsi"/>
-                          <div className="card-body">
-                              <h5 className="card-title fw-bold">Chernivtsi</h5>
-                              <p className="card-text text-muted">410 km from Kyiv</p>
-                          </div>
-                      </div>
-                  </div>
-                  <div className="col-md-4 col-lg-2">
-                      <div className="card card-custom">
-                          <img src="~/resources/images/Countries/Ukraine/ivanoFr.jpg" className="card-img-top-custom" alt="Ivano-Frankivsk"/>
-                          <div className="card-body">
-                              <h5 className="card-title fw-bold">Ivano-Frankivsk</h5>
-                              <p className="card-text text-muted">451 km from Kyiv</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          {/*@* Other tab panes would go here, structured similarly *@*/}
-      </div>
-
-        {/*activeTab === "Cultural Exploration" && (
-          <div className="row g-4">
-            {[
-              { city: "Poltava", img: `${serverUrl}/Storage/Item/poltava.jpg`, dist: "303 km" },
-              { city: "Sumy", img:`${serverUrl}/Storage/Item/sumy.jpg`, dist: "305 km" },
-              { city: "Dnipro", img: `${serverUrl}/Storage/Item/dnipro.jpg`, dist: "394 km" },
-              { city: "Kharkiv", img: `${serverUrl}/Storage/Item/kharkiv.jpg`, dist: "409 km" },
-              { city: "Chernivtsi", img: `${serverUrl}/Storage/Item/chernivtsi.jpg`, dist: "410 km" },
-              { city: "Ivano-Frankivsk", img: `${serverUrl}/Storage/Item/ivanoFr.jpg`, dist: "451 km" },
-            ].map((place) => (
-              <div className="col-md-4 col-lg-2" key={place.city}>
-                <div className="card card-custom">
-                  <img src={place.img} className="card-img-top-custom" alt={place.city} />
-                  <div className="card-body">
-                    <h5 className="card-title fw-bold">{place.city}</h5>
-                    <p className="card-text text-muted">{place.dist} from Kyiv</p>
-                  </div>
+                        </div>
+                      )
+                    })
+                  }
                 </div>
-              </div>
-            ))}
-          </div>
-        )*/}
+            </div>
+            {/*@* Other tab panes would go here, structured similarly *@*/}
+        </div>
       </section>
 
       <section className="mb-5">
@@ -208,14 +131,10 @@ export default function HomePage() {
         <h2 className="section-title">Popular with travellers from Ukraine</h2>
         <ul className="nav nav-pills mb-3">
           <li className="nav-item">
-            <button className="nav-link active rounded-pill me-2 btn-outline-primary-booking">
-              Domestic cities
-            </button>
+            <button className="nav-link active rounded-pill me-2 btn-outline-primary-booking">Domestic cities</button>
           </li>
           <li className="nav-item">
-            <button className="nav-link rounded-pill me-2 btn-outline-primary-booking">
-              International cities
-            </button>
+            <button className="nav-link rounded-pill me-2 btn-outline-primary-booking">International cities</button>
           </li>
           <li className="nav-item">
             <button className="nav-link rounded-pill me-2 btn-outline-primary-booking">Regions</button>
@@ -228,7 +147,71 @@ export default function HomePage() {
           </li>
         </ul>
 
-        <div className="tab-pane fade show active tab-pane-scroll">
+        <div className="tab-content" id="popular-tabs-content">
+          <div className="tab-pane fade show active tab-pane-scroll" id="popular-cities" role="tabpanel" aria-labelledby="popular-cities-tab">
+              <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3">
+                  <div className="col">
+                      <ul className="list-unstyled">
+                          <li><a href="#" className="text-decoration-none text-dark">Lviv hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Kyiv hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Odesa hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Kharkiv hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Dnipro hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Zaporizhzhia hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Vinnytsia hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Mykolaiv hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Poltava hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Chernihiv hotels</a></li>
+                      </ul>
+                  </div>
+                  <div className="col">
+                      <ul className="list-unstyled">
+                          <li><a href="#" className="text-decoration-none text-dark">Chernivtsi hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Uzhhorod hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Ivano-Frankivsk hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Lutsk hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Rivne hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Ternopil hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Sumy hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Zhytomyr hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Kremenchuk hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Kryvyi Rih hotels</a></li>
+                      </ul>
+                  </div>
+                  <div className="col">
+                      <ul className="list-unstyled">
+                          <li><a href="#" className="text-decoration-none text-dark">Mariupol hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Kherson hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Kamianets-Podilskyi hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Mukachevo hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Yaremche hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Bukovel hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Slavske hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Truskavets hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Vorokhta hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Berdyansk hotels</a></li>
+                      </ul>
+                  </div>
+                  <div className="col">
+                      <ul className="list-unstyled">
+                          <li><a href="#" className="text-decoration-none text-dark">Chornomorsk hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Enerhodar hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Kamianske hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Kovel hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Lubny hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Mirhorod hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Novovolynsk hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Pereiaslav hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Smila hotels</a></li>
+                          <li><a href="#" className="text-decoration-none text-dark">Uman hotels</a></li>
+                      </ul>
+                  </div>
+              </div>
+              <Link href="#" className="text-decoration-none text-primary fw-bold mt-3 d-inline-block">+ Show more</Link>
+          </div>
+      </div>
+          {/*
+          <div className="tab-pane fade show active tab-pane-scroll">
           <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3">
             {[...Array(4)].map((_, col) => (
               <div className="col" key={col}>
@@ -261,6 +244,8 @@ export default function HomePage() {
             + Show more
           </Link>
         </div>
+          */}
+        
       </section>
     </main>
   );

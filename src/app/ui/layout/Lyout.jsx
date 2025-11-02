@@ -1,13 +1,28 @@
-import { Link, Outlet } from "react-router-dom";
-import { useContext } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import "./Layout.css";
 import AppContext from "../../../features/context/AppContext";
+import { ChevronDown, CircleArrowOutUpLeft, User } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Layout() {
     const {user, setToken} = useContext(AppContext);
     const isAdmin = user?.RoleId === "Administrator";
     const {serverUrl} = useContext(AppContext);
     const userLogin = user?.Login || "";
+
+    const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
+
+    console.log(user);
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if(!e.target.closest(".dropdown-container")) setOpen(false);
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [])
 
     return (
         <div className="d-flex flex-column min-vh-100">
@@ -33,11 +48,24 @@ export default function Layout() {
 
                                     {user && userLogin ? (
                                         <>
-                                            <Link to={`/profile/${userLogin}`} className="text-decoration-none d-flex align-items-center">
-                                                <div className="login-icon mx-2">{userLogin[0]}</div>
-                                                {/* <span className="header-user-name">{userLogin}</span>  */}
-                                            </Link>
-                                            <button onClick={() => { setToken(null); }}>Log Out</button>
+                                            <div className="relative dropdown-container">
+                                                <button onClick={() => setOpen(!open)} className="profile-button">
+                                                    <div className="profile-container gap-2 px-3 py-1">
+                                                        <div className="login-icon">{userLogin[0]}</div>
+                                                        <span className="font-medium text-white fw-bold">{userLogin}</span>
+                                                        <ChevronDown className={`w-4 h-4 text-white transition-transform duration-200 ${ open ? "rotate-180" : "rotate-0" }`}/>
+                                                    </div>
+                                                </button>
+
+                                                <AnimatePresence>
+                                                    {open && (
+                                                        <motion.div style={{ position: "absolute", zIndex: 99999 }} initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }} className="menu-profile-buttons-container absolute right-0 top-full mt-2 w-40 rounded-xl bg-white shadow-lg border border-gray-100 overflow-hidden z-[9999] will-change-transform">
+                                                            <button onClick={() => { navigate(`/profile/${userLogin}`); setOpen(false); }} className="menu-profile-button w-100 px-4 py-2 my-1"><User/> My Account</button>
+                                                            <button onClick={() => { setToken(null); setOpen(false); }} className="menu-profile-button w-100 px-4 py-2 mb-1"><CircleArrowOutUpLeft/> Sign Out</button>
+                                                        </motion.div>
+                                                    )}
+                                                </AnimatePresence>
+                                            </div>
                                         </>
                                     ) : (
                                         <>
@@ -68,7 +96,7 @@ export default function Layout() {
                                 </Link>
                             </li>
                             {
-                                user && userLogin &&
+                                //user && userLogin &&
                                 <li className="nav-item mx-3">
                                     <Link className="nav-link d-flex align-items-center" to={`/bookings/${userLogin}`}>
                                         <i className="bi bi-journal-bookmark me-1"></i> Bookings & Trips
@@ -90,12 +118,12 @@ export default function Layout() {
                 </div>
 
                 <div id="header-bottom">
-                    {document.title === "Booking" ? (
+                    {document.URL.split('/')[document.URL.split('/').length - 1] == '' ? (
                         <div className="container header-banner">
                             <h1>
-                                <span>Find your next stay</span>
+                                <span>{user && userLogin ? `Where to next, ${user.FirstName}?` : "Find your next stay"}</span>
                             </h1>
-                            <p>Search deals on hotels, homes, and much more...</p>
+                            <p>{user && userLogin ? "Find exclusive Genius rewards in every corner of the world!" : "Search deals on hotels, homes, and much more..."}</p>
                         </div>
                     ) : (
                         <div className="header-bottom-filler"></div>
@@ -120,7 +148,7 @@ export default function Layout() {
                                 <li><a href="#" className="footer-link">Manage your trips</a></li>
                                 <li><a href="#" className="footer-link">Contact Customer Service</a></li>
                                 <li><a href="#" className="footer-link">Safety resource centre</a></li>
-                            </ul>
+                            </ul>F
                         </div>
 
                         <div className="col-md-3 mb-3">

@@ -85,7 +85,7 @@ a[b-0mcryyuvy1] {
     border: 0px solid transparent;
     border-radius: 50%;
     font-weight: 700;
-    background: azure;
+    background: #ffb700;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -96,7 +96,7 @@ a[b-0mcryyuvy1] {
 .header-user-name
 {
     font-weight: 800;
-    color: white;
+    color: #242424;
 
 }
 
@@ -133,3 +133,62 @@ a[b-0mcryyuvy1] {
 .footer-link:hover {
     text-decoration: underline;
 }
+
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Ensure dropdown menu overlays, not shifts layout */
+.dropdown-container > div {
+  position: absolute;
+  right: 0;
+  top: 100%;
+}
+
+/* Smooth dropdown appearance */
+.dropdown-container button {
+  outline: none;
+}
+
+.profile-button
+{
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background-color: transparent;
+    opacity: 1;
+    transition: opacity;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: transparent;
+}
+
+.profile-button:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid transparent !important;
+}
+
+.menu-profile-buttons-container
+{
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-color: white;
+}
+
+.menu-profile-button
+{
+    display: block;
+    background-color: transparent;
+    border: 0px solid transparent;
+    text-align: start;
+}
+
+.menu-profile-button:hover {
+    background-color: #f2f2f2;
+}
+

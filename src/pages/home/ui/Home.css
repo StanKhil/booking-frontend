@@ -36,3 +36,23 @@
 .holiday-home-card {
     background-color: #fff3e0;
 }
+
+.btn-primary-booking {
+    background-color: #0071c2 !important;
+    border-color: #0071c2 !important;
+}
+
+.btn-primary-booking:hover {
+    background-color: #0056b3 !important;
+    border-color: #0056b3 !important;
+}
+
+.btn-outline-primary-booking {
+    color: #0071c2 !important;
+    border-color: #0071c2 !important;
+}
+
+.btn-outline-primary-booking:hover {
+    background-color: #0071c2 !important;
+    color: white !important;
+}
