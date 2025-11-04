@@ -14,7 +14,7 @@ export default function Layout() {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
 
-    console.log(user);
+    //console.log(user);
 
     useEffect(() => {
         const handleClickOutside = (e) => {
