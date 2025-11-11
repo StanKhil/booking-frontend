@@ -1,12 +1,59 @@
+import { useContext } from "react";
+import AppContext from "../../features/context/AppContext";
+
 export default function UpdateDeleteRealtyPage()
 {
+    const {request} = useContext(AppContext);
+    
+    const onUpdateSubmit = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        console.log(formData.get('realty-former-slug'));
+        request('/api/realty', {
+            method: 'PATCH',
+            body: formData
+        }).then((data) => {
+            const alertBox = document.getElementById('admin-realty-update-alert');
+            alertBox.classList.remove('d-none', 'alert-danger');
+            alertBox.classList.add('alert-success');
+            alertBox.textContent = 'Realty created successfully!';
+            form.reset();
+        }).catch((error) => {
+            const alertBox = document.getElementById('admin-realty-update-alert');
+            alertBox.classList.remove('d-none', 'alert-success');
+            alertBox.classList.add('alert-danger');
+            alertBox.textContent = 'Error creating realty: ' + error.message;
+        });
+    }
+
+    const onDeleteSubmit = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        request('/api/realty/' + formData.get('realty-delete-slug'), {
+            method: 'DELETE',
+        }).then((data) => {
+            const alertBox = document.getElementById('admin-realty-delete-alert');
+            alertBox.classList.remove('d-none', 'alert-danger');
+            alertBox.classList.add('alert-success');
+            alertBox.textContent = 'Realty deleted successfully!';
+            form.reset();
+        }).catch((error) => {
+            const alertBox = document.getElementById('admin-realty-delete-alert');
+            alertBox.classList.remove('d-none', 'alert-success');
+            alertBox.classList.add('alert-danger');
+            alertBox.textContent = 'Error deleting realty: ' + error.message;
+        });
+    }
+
     return <>
         <div className="container">
 
             <h3>Update Realties</h3>
             <hr/>
 
-            <form id="realty-update-form" encType="multipart/form-data">
+            <form onSubmit={onUpdateSubmit} id="realty-update-form" encType="multipart/form-data">
 
             <div className="mb-3">
                 <label htmlFor="realty-former-slug" className="form-label">Slug</label>
@@ -77,12 +124,12 @@ export default function UpdateDeleteRealtyPage()
             <div role="alert" className="alert d-none" id="admin-realty-update-alert"></div>
 
             <hr/>
-            <h3 className="mt-5">Delete Users</h3>
+            <h3 className="mt-5">Delete Realty</h3>
             <hr/>
 
-            <form id="realty-delete-form">
+            <form onSubmit={onDeleteSubmit} id="realty-delete-form">
                 <div className="mb-3">
-                    <label htmlFor="realty-delete-slug" className="form-label">Login</label>
+                    <label htmlFor="realty-delete-slug" className="form-label">SLug</label>
                     <input type="text" name="realty-delete-slug"  className="form-control @classAddon" id="realty-delete-slug" aria-describedby="Delete slug" placeholder="Enter realty's current slug"/>
                     <div className="invalid-feedback"></div>
                 </div>

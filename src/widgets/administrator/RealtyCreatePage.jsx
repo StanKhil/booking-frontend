@@ -1,11 +1,38 @@
+import { useContext } from "react";
+import AppContext from "../../features/context/AppContext";
+
 export default function RealtyCreatePage()
 {
+    const {request} = useContext(AppContext);
+
+    const onFormSubmit = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        request('/api/realty', {
+            method: 'POST',
+            body: formData
+        }).then((data) => {
+            const alertBox = document.getElementById('admin-realty-create-alert');
+            alertBox.classList.remove('d-none', 'alert-danger');
+            alertBox.classList.add('alert-success');
+            alertBox.textContent = 'Realty created successfully!';
+            form.reset();
+        }).catch((error) => {
+            const alertBox = document.getElementById('admin-realty-create-alert');
+            alertBox.classList.remove('d-none', 'alert-success');
+            alertBox.classList.add('alert-danger');
+            alertBox.textContent = 'Error creating realty: ' + error.message;
+        });
+    }
+
     return <>
         <div className="container">
             <h3>Create Realties</h3>
             <hr/>
 
-            <form id="realty-add-form">
+            <form onSubmit={onFormSubmit}
+            id="realty-add-form">
                 <div className="mb-3">
                     <label htmlFor="realty-name" className="form-label">Name</label>
                     <input type="text" name="realty-name" className="form-control @classAddon" id="realty-name" aria-describedby="RealtyName" placeholder="Enter name"/>
