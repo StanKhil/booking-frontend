@@ -59,25 +59,25 @@ export default function SearchPage() {
                           <h6>Property type</h6>
                           <div className="form-check">
                               <input className="form-check-input" type="checkbox" value="" id="hotelsFilter"/>
-                              <label className="form-check-label" for="hotelsFilter">
+                              <label className="form-check-label" htmlFor="hotelsFilter">
                                   Hotels <span className="text-muted">(number)</span>
                               </label>
                           </div>
                           <div className="form-check">
                               <input className="form-check-input" type="checkbox" value="" id="apartmentsFilter"/>
-                              <label className="form-check-label" for="apartmentsFilter">
+                              <label className="form-check-label" htmlFor="apartmentsFilter">
                                   Apartments <span className="text-muted">(number)</span>
                               </label>
                           </div>
                           <div className="form-check">
                               <input className="form-check-input" type="checkbox" value="" id="villasFilter"/>
-                              <label className="form-check-label" for="villasFilter">
+                              <label className="form-check-label" htmlFor="villasFilter">
                                   Villas <span className="text-muted">(number)</span>
                               </label>
                           </div>
                           <div className="form-check">
                               <input className="form-check-input" type="checkbox" value="" id="housesFilter"/>
-                              <label className="form-check-label" for="housesFilter">
+                              <label className="form-check-label" htmlFor="housesFilter">
                                   Houses <span className="text-muted">(number)</span>
                               </label>
                           </div>
@@ -99,7 +99,7 @@ export default function SearchPage() {
                   <div className="d-flex justify-content-between align-items-center mb-3">
                       <h4 className="results-count">(Country/City): properties found</h4>
                       <div className="sort-options d-flex align-items-center">
-                          <label for="sortOrder" className="form-label mb-0">Sort by:</label>
+                          <label htmlFor="sortOrder" className="form-label mb-0">Sort by:</label>
                           <div className="dropdown">
                               <button className="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                   Our top picks <i className="bi bi-caret-down-fill"></i>

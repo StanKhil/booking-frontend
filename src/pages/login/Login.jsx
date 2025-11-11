@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import AppContext from "../../features/context/AppContext";
 import Base64 from "../../shared/base64/Base64";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [form, setForm] = useState({ login: "", password: "" });
