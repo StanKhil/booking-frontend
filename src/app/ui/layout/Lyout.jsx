@@ -106,7 +106,7 @@ export default function Layout() {
                             {
                             isAdmin && (
                                 <li className="nav-item mx-3">
-                                    <Link className="nav-link d-flex align-items-center" to="/admin">
+                                    <Link className="nav-link d-flex align-items-center" to="/administrator">
                                         <i className="bi bi-feather me-1"></i> Administrator
                                     </Link>
                                 </li>

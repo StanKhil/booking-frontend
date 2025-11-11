@@ -66,7 +66,7 @@ export default function HomePage() {
               {text: "Romantic Getaways", id: "pills-romantic-tab", data: "#pills-romantic", ariaControls: "pills-romantic"},
             ].map((tab, index) => {
               return (<li className="nav-item" key={index} role="presentation">
-                <button className={index == 0 ? "nav-link active rounded-pill me-2 btn-outline-primary-booking" : "nav-link rounded-pill btn-outline-primary-booking"} 
+                <button className={index == 0 ? "nav-link active rounded-pill me-2 btn-outline-primary-booking" : "nav-link rounded-pill me-2 btn-outline-primary-booking"} 
                   id={tab.id} data-bs-toggle="pill" data-bs-target={tab.data} type="button" role="tab" aria-controls={tab.ariaControls} aria-selected={index == 0 ? "true" : "false"}>{tab.text}</button>
               </li>)
             })

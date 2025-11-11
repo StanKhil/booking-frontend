@@ -1,0 +1,21 @@
+.filter-section {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.filter-section h5 {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.filter-section .form-check-label {
+    margin-left: 5px;
+}
+
+.filter-section .form-check {
+    margin-bottom: 8px;
+}
