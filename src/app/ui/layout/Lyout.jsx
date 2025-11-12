@@ -96,7 +96,7 @@ export default function Layout() {
                                 </Link>
                             </li>
                             {
-                                //user && userLogin &&
+                                user && userLogin &&
                                 <li className="nav-item mx-3">
                                     <Link className="nav-link d-flex align-items-center" to={`/bookings/${userLogin}`}>
                                         <i className="bi bi-journal-bookmark me-1"></i> Bookings & Trips

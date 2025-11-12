@@ -1,11 +1,37 @@
+import { useContext } from "react";
+import AppContext from "../../features/context/AppContext";
+
 export default function UserCreatePage()
 {
+    const {request} = useContext(AppContext);
+    
+        const onFormSubmit = (event) => {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            request('/api/user', {
+                method: 'POST',
+                body: formData
+            }).then((data) => {
+                const alertBox = document.getElementById('admin-user-create-alert');
+                alertBox.classList.remove('d-none', 'alert-danger');
+                alertBox.classList.add('alert-success');
+                alertBox.textContent = 'User created successfully!';
+                form.reset();
+            }).catch((error) => {
+                const alertBox = document.getElementById('admin-user-create-alert');
+                alertBox.classList.remove('d-none', 'alert-success');
+                alertBox.classList.add('alert-danger');
+                alertBox.textContent = 'Error creating user: ' + error.message;
+            });
+        }
+
     return <>
     <div className="container">
         <h3>Create Users</h3>
         <hr/>
 
-        <form id="user-add-form">
+        <form onSubmit={onFormSubmit} id="user-add-form">
             <div className="mb-3">
                 <label htmlFor="user-first-name" className="form-label">First Name</label>
                 <input type="text" name="user-first-name" className="form-control @classAddon" id="user-first-name" aria-describedby="FirstName" placeholder="Enter first name"/>

@@ -9,7 +9,6 @@ export default function UpdateDeleteRealtyPage()
         event.preventDefault();
         const form = event.target;
         const formData = new FormData(form);
-        console.log(formData.get('realty-former-slug'));
         request('/api/realty', {
             method: 'PATCH',
             body: formData
@@ -17,13 +16,13 @@ export default function UpdateDeleteRealtyPage()
             const alertBox = document.getElementById('admin-realty-update-alert');
             alertBox.classList.remove('d-none', 'alert-danger');
             alertBox.classList.add('alert-success');
-            alertBox.textContent = 'Realty created successfully!';
+            alertBox.textContent = 'Realty updated successfully!';
             form.reset();
         }).catch((error) => {
             const alertBox = document.getElementById('admin-realty-update-alert');
             alertBox.classList.remove('d-none', 'alert-success');
             alertBox.classList.add('alert-danger');
-            alertBox.textContent = 'Error creating realty: ' + error.message;
+            alertBox.textContent = 'Error updating realty: ' + error.message;
         });
     }
 

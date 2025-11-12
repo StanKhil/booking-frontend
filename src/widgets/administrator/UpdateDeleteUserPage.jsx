@@ -1,11 +1,59 @@
+import { useContext } from "react";
+import AppContext from "../../features/context/AppContext";
+
 export default function UpdateDeleteUserPage()
 {
+
+    const {request} = useContext(AppContext);
+        
+        const onUpdateSubmit = (event) => {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            request('/api/user/' + formData.get('user-former-login'), {
+                method: 'PATCH',
+                body: formData
+            }).then((data) => {
+                const alertBox = document.getElementById('admin-user-update-alert');
+                alertBox.classList.remove('d-none', 'alert-danger');
+                alertBox.classList.add('alert-success');
+                alertBox.textContent = 'User updated successfully!';
+                form.reset();
+            }).catch((error) => {
+                const alertBox = document.getElementById('admin-user-delete-alert');
+                alertBox.classList.remove('d-none', 'alert-success');
+                alertBox.classList.add('alert-danger');
+                alertBox.textContent = 'Error updating user: ' + error.message;
+            });
+        }
+    
+        const onDeleteSubmit = (event) => {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            request('/api/user/' + formData.get('user-delete-login'), {
+                method: 'DELETE',
+            }).then((data) => {
+                const alertBox = document.getElementById('admin-realty-delete-alert');
+                alertBox.classList.remove('d-none', 'alert-danger');
+                alertBox.classList.add('alert-success');
+                alertBox.textContent = 'Realty deleted successfully!';
+                form.reset();
+            }).catch((error) => {
+                const alertBox = document.getElementById('admin-realty-delete-alert');
+                alertBox.classList.remove('d-none', 'alert-success');
+                alertBox.classList.add('alert-danger');
+                alertBox.textContent = 'Error deleting realty: ' + error.message;
+            });
+        }
+    
+
     return <>
         <div className="container">
             <h3>Update Users</h3>
             <hr/>
 
-            <form id="user-update-form">
+            <form onSubmit={onUpdateSubmit} id="user-update-form">
                 <div className="mb-3">
                     <label htmlFor="user-former-login" className="form-label">Login</label>
                     <input type="text" name="user-former-login"  className="form-control @classAddon" id="user-former-login" aria-describedby="Former login" placeholder="Enter user's current login"/>
@@ -68,7 +116,7 @@ export default function UpdateDeleteUserPage()
                 <h3 className="mt-5">Delete Users</h3>
                 <hr/>
 
-                <form id="user-delete-form">
+                <form onSubmit={onDeleteSubmit} id="user-delete-form">
                     <div className="mb-3">
                         <label htmlFor="user-delete-login" className="form-label">Login</label>
                         <input type="text" name="user-delete-login"  className="form-control @classAddon" id="user-delete-login" aria-describedby="Delete login" placeholder="Enter user's current login"/>
