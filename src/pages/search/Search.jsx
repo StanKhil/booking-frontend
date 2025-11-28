@@ -1,15 +1,46 @@
 import { useContext, useState } from "react";
 import AppContext from "../../features/context/AppContext";
 import './ui/Search.css'
+import RealtySearchCard from "../../widgets/searchRealty/RealtySearchCard"
+import {List, Grid} from "lucide-react"
 
 export default function SearchPage() {
   const [activeTab, setActiveTab] = useState("cultural");
-  const {serverUrl} = useContext(AppContext);
+  const {serverUrl, request} = useContext(AppContext);
 
   const [rating, setRating] = useState(3);
   const [price, setPrice] = useState(2000);
+  const [propertyTypeFilters, setPropertyTypeFilters] = useState([]);
+  const [searchRealties, setSearchRealties] = useState([]);
+  const [viewMode, setViewMode] = useState("list");
 
   const handleTabClick = (tab) => setActiveTab(tab);
+
+  const handleCheckboxChange = (event) => {
+    const value = event.target.dataset.filter;
+    if(event.target.checked)
+    {
+        setPropertyTypeFilters([...propertyTypeFilters, value]);
+    }
+    else
+    {
+        setPropertyTypeFilters(propertyTypeFilters.filter(item => item != value))
+    }
+  }
+
+  const search = async () => {
+    const filters = {
+        "Price": parseFloat(price),
+        "Checkboxes": propertyTypeFilters,
+        "Rating": parseInt(rating)
+    }
+    const realties = await request('/api/realty/search', {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(filters)
+    });
+    setSearchRealties(realties);
+  }
 
   return (
     <>
@@ -29,7 +60,7 @@ export default function SearchPage() {
                       </div>
                   </div>
                   <div className="col-lg-4 col-md-5">
-                      <button id="search-button" type="button" className="btn search-button w-100">Search</button>
+                      <button onClick={search} id="search-button" type="button" className="btn search-button w-100">Search</button>
                   </div>
               </div>
           </div>
@@ -58,25 +89,25 @@ export default function SearchPage() {
                       <div className="mb-3">
                           <h6>Property type</h6>
                           <div className="form-check">
-                              <input className="form-check-input" type="checkbox" value="" id="hotelsFilter"/>
+                              <input className="form-check-input" type="checkbox" value="" id="hotelsFilter" data-filter="Hotels" onChange={handleCheckboxChange}/>
                               <label className="form-check-label" htmlFor="hotelsFilter">
                                   Hotels <span className="text-muted">(number)</span>
                               </label>
                           </div>
                           <div className="form-check">
-                              <input className="form-check-input" type="checkbox" value="" id="apartmentsFilter"/>
+                              <input className="form-check-input" type="checkbox" value="" id="apartmentsFilter" data-filter="Apartments" onChange={handleCheckboxChange}/>
                               <label className="form-check-label" htmlFor="apartmentsFilter">
                                   Apartments <span className="text-muted">(number)</span>
                               </label>
                           </div>
                           <div className="form-check">
-                              <input className="form-check-input" type="checkbox" value="" id="villasFilter"/>
+                              <input className="form-check-input" type="checkbox" value="" id="villasFilter" data-filter="Villas" onChange={handleCheckboxChange}/>
                               <label className="form-check-label" htmlFor="villasFilter">
                                   Villas <span className="text-muted">(number)</span>
                               </label>
                           </div>
                           <div className="form-check">
-                              <input className="form-check-input" type="checkbox" value="" id="housesFilter"/>
+                              <input className="form-check-input" type="checkbox" value="" id="housesFilter" data-filter="Houses" onChange={handleCheckboxChange}/>
                               <label className="form-check-label" htmlFor="housesFilter">
                                   Houses <span className="text-muted">(number)</span>
                               </label>
@@ -96,74 +127,46 @@ export default function SearchPage() {
               </div>
 
               <div className="col-lg-9">
-                  <div className="d-flex justify-content-between align-items-center mb-3">
-                      <h4 className="results-count">(Country/City): properties found</h4>
-                      <div className="sort-options d-flex align-items-center">
-                          <label htmlFor="sortOrder" className="form-label mb-0">Sort by:</label>
-                          <div className="dropdown">
-                              <button className="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Our top picks <i className="bi bi-caret-down-fill"></i>
-                              </button>
-                              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                  <li><a className="dropdown-item" href="#">Price (lowest first)</a></li>
-                                  <li><a className="dropdown-item" href="#">Price (highest first)</a></li>
-                                  <li><a className="dropdown-item" href="#">Review score and price</a></li>
-                                  <li><a className="dropdown-item" href="#">Top reviewed</a></li>
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
-
-                  <div id="item-list">
-                      {/*
-                        <div className="property-card">
-                          <div className="property-card-image">
-                              <img src="your-realty-image-url" alt="Realty Name" className="img-fluid"/>
-                          </div>
-                          <div className="property-card-body">
-                              <div>
-                                  <h3 className="property-card-title">Your Realty Name</h3>
-                                  <div className="property-card-location">
-                                      <i className="bi bi-geo-alt"></i> Your Realty Location - Distance from center
-                                  </div>
-                                  <div className="special-offer">
-                                      Optional: Special Offer text from your Realty
-                                  </div>
-                                  <div className="property-card-features mt-2">
-                                      Your Realty Description/Bed Configuration
-                                  </div>
-                                  <div className="free-cancellation">
-                                      <i className="bi bi-check-circle-fill"></i> Optional: Free cancellation if applicable
-                                  </div>
-                                  <div className="no-prepayment">
-                                      <i className="bi bi-check-circle-fill"></i> Optional: No prepayment needed if applicable
-                                  </div>
-                                  <div className="getting-around">
-                                      <i className="bi bi-train-front"></i> Optional: Getting around info
-                                  </div>
-                              </div>
-                              <div className="d-flex justify-content-between align-items-end mt-auto">
-                                  <div className="property-card-rating">
-                                      <span className="rating-badge">Your Realty Rating</span>
-                                      <div>
-                                          <div className="review-text">Your Realty Review Snippet</div>
-                                          <div className="number-of-reviews">Your Realty Number of Reviews reviews</div>
-                                      </div>
-                                  </div>
-                                  <div className="property-card-price-section">
-                                      <div className="original-price">Optional: Original Price</div>
-                                      <div className="current-price">UAH Your Realty Current Price</div>
-                                      <div className="price-details">Includes taxes and charges</div>
-                                      <a href="#" className="btn view-availability-button">See availability <i className="bi bi-chevron-right"></i></a>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      */}
-                  </div>
-              </div>
-          </div>
-      </div>
+                        <div className="d-flex justify-content-between align-items-center mb-3">
+                            <h4 className="results-count">Properties found: {searchRealties.length} </h4>
+                            <div className="d-flex align-items-center">
+                                <div className="sort-options d-flex align-items-center me-3">
+                                    <label htmlFor="sortOrder" className="form-label mb-0 me-2 small text-muted">Sort by:</label>
+                                    <div className="dropdown">
+                                        <button className="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Our top picks 
+                                        </button>
+                                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a className="dropdown-item" href="#">Price (lowest first)</a></li>
+                                            <li><a className="dropdown-item" href="#">Price (highest first)</a></li>
+                                            <li><a className="dropdown-item" href="#">Review score and price</a></li>
+                                            <li><a className="dropdown-item" href="#">Top reviewed</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div className="btn-group view-toggle" role="group" aria-label="View toggle">
+                                    <button type="button" className={`btn btn-sm ${viewMode === 'list' ? 'btn-primary' : 'btn-outline-secondary'}`} onClick={() => setViewMode('list')} title="List View">
+                                        <List size={18}/>
+                                    </button>
+                                    <button type="button" className={`btn btn-sm ${viewMode === 'grid' ? 'btn-primary' : 'btn-outline-secondary'}`} onClick={() => setViewMode('grid')} title="Grid View">
+                                        <Grid size={18}/>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="item-list" className={viewMode === 'grid' ? 'row' : ''}>
+                            {searchRealties.length > 0 ? (
+                                searchRealties.map(realty => (<RealtySearchCard key={realty.id} realty={realty} view={viewMode}/>))
+                            ) : (
+                                <div className="alert alert-info" role="alert">
+                                    No realties found matching your criteria.
+                                </div>
+                            )}
+                        </div>
+                    </div>
+            </div>
+        </div>
     </>
   );
 }

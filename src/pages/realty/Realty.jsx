@@ -3,7 +3,7 @@ import AppContext from "../../features/context/AppContext";
 import { useParams } from "react-router-dom";
 import Feedback from "./ui/Feedback";
 
-export default function Realty(){
+export default function Realty() {
     const [realty, setRealty] = useState(null);
     const {request,user } = useContext(AppContext);
     const {id} = useParams();

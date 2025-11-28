@@ -25,8 +25,6 @@ export default function AdministratorPage()
         }
     }
 
-   
-
     return <>
         <div className="container mt-3" >
             <div className="row">
