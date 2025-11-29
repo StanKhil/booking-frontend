@@ -103,15 +103,15 @@ export default function Realty() {
                                     <h5 className="fw-bold mb-3">Property Highlights</h5>
                                     
                                     <div className="d-flex align-items-center mb-3">
-                                        <div className="review-badge me-2">{realty.accRates.avgRate}</div>
+                                        <div className="review-badge me-2">{realty.accRates ? realty.accRates.avgRate : 0}</div>
                                         <div>
                                             <span className="fw-bold d-block lh-1">Excellent</span>
-                                            <span className="text-muted small">{realty.accRates.countRate} reviews</span>
+                                            <span className="text-muted small">{realty.accRates ? realty.accRates.countRate : 0} reviews</span>
                                         </div>
                                     </div>
 
                                     <div className="mb-3 text-dark small">
-                                        <p className="mb-1"><MapPin size={14} className="me-1"/> <strong>Top Location:</strong> Highly rated by recent guests ({realty.accRates.avgRate})</p>
+                                        <p className="mb-1"><MapPin size={14} className="me-1"/> <strong>Top Location:</strong> Highly rated by recent guests ({realty.accRates ? realty.accRates.avgRate : 0})</p>
                                     </div>
 
                                     <div className="bg-white p-3 rounded border border-warning-subtle mb-3">
