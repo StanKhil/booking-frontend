@@ -1,0 +1,91 @@
+.main-content {
+    padding-top: 0;
+}
+
+.header-buttons {
+    display: none;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Booking.com Color Palette Imitation */
+:root {
+    --booking-blue: #003b95;
+    --booking-light-blue: #ebf3ff;
+    --booking-yellow: #febb02;
+    --booking-green: #008009;
+    --booking-text: #1a1a1a;
+}
+
+.realty-container {
+    color: var(--booking-text);
+}
+
+/* Typography & Headers */
+h2 {
+    letter-spacing: -0.5px;
+}
+
+.text-primary {
+    color: var(--booking-blue) !important;
+}
+
+.bg-light-blue {
+    background-color: var(--booking-light-blue);
+}
+
+/* Header Elements */
+.type-badge {
+    font-size: 0.7rem;
+    background-color: #6c757d;
+    vertical-align: middle;
+}
+
+.fill-warning {
+    fill: var(--booking-yellow);
+}
+
+/* Gallery Grid System 
+   Creates the 'Mosaic' look: Main image on left, 2 smaller stacked on right
+*/
+
+.gallery-sub {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 8px;
+}
+
+.gallery-main img, .gallery-sub img {
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.gallery-main img:hover, .gallery-sub img:hover {
+    opacity: 0.9;
+}
+
+/* Booking Sidebar / Card */
+.booking-card {
+    background-color: #ebf3ff; /* Light blue background like Booking.com */
+    border: 1px solid #cce1ff !important;
+}
+
+.price-tag {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.btn-reserve {
+    background-color: var(--booking-blue);
+}

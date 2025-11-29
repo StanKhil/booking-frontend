@@ -107,7 +107,7 @@ export default function RealtyCard({ realty, view })
                     <div className="price-label text-muted small">1 night</div>
                     <h6 className="price-value fw-bold">UAH {realty.price}</h6>
                 </div>
-                <button className="btn btn-sm btn-primary show-prices-btn w-100 mt-2">View Deal</button>
+                <Link to={`/realty/${realty.id}`} className="btn btn-sm btn-primary show-prices-btn w-100 mt-2">View Deal</Link>
             </div>
         );
     }
