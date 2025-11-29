@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 export default function RealtyCard({ realty, view }) 
 {
-    console.log(realty);
     const cardClass = view === 'list' ? 'realty-card list-view' : 'realty-card grid-view';
 
     const renderStars = (rating) => {
@@ -42,7 +41,10 @@ export default function RealtyCard({ realty, view })
                 <div className="row g-0">
                     <div className="col-md-4">
                         <div className="realty-image-container">
-                            <img src={realty.imageUrl} className="realty-image list-image" alt={realty.name} />
+                            {
+                                realty.images[0] &&
+                                <img src={realty.images[0].imageUrl} className="realty-image list-image" alt={realty.name} />
+                            }
                             <button className="wishlist-btn"><Heart size={20} fill="white" stroke="black" /></button>
                         </div>
                     </div>
@@ -84,7 +86,11 @@ export default function RealtyCard({ realty, view })
         return (
             <div className={`${cardClass} col-lg-4 col-md-6 mb-4`}>
                 <div className="realty-image-container mb-2">
-                    <img src={realty.imageUrl} className="realty-image grid-image" alt={realty.name} />
+                    {
+                        realty.images[0] &&
+                        <img src={realty.images[0].imageUrl} className="realty-image grid-image" alt={realty.name} />
+                    }
+                    
                     <button className="wishlist-btn"><Heart size={18} fill="white" stroke="black" /></button>
                     <div className="grid-score-badge">
                         <span className="rating-text fw-bold me-1">{getRatingText(realty.accRates ? realty.accRates.avgRate : 0)}</span>
