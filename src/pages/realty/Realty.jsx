@@ -17,7 +17,7 @@ export default function Realty() {
     const [endDate, setEndDate] = useState('');
     const [message, setMessage] = useState('');
 
-    //console.log(realty)
+    console.log(realty)
 
     useEffect(() => {
         request('/api/realty/' + id)
@@ -74,7 +74,7 @@ export default function Realty() {
                             <h1>{realty.name}</h1>
                             <p>
                                 <MapPin className="" />
-                                {` ${realty.city.name} ` //${realty.city.country.name} 
+                                {` ${realty.city.name} ${realty.city.country.name}`  
                                 }
                             </p>
                         </div>
