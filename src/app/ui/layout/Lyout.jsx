@@ -2,7 +2,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import "./Layout.css";
 import AppContext from "../../../features/context/AppContext";
-import { ChevronDown, CircleArrowOutUpLeft, User } from "lucide-react";
+import { ChevronDown, CircleArrowOutUpLeft, User, BookMarked } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function Layout() {
@@ -61,6 +61,7 @@ export default function Layout() {
                                                     {open && (
                                                         <motion.div style={{ position: "absolute", zIndex: 99999 }} initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }} className="menu-profile-buttons-container absolute right-0 top-full mt-2 w-40 rounded-xl bg-white shadow-lg border border-gray-100 overflow-hidden z-[9999] will-change-transform">
                                                             <button onClick={() => { navigate(`/profile/${userLogin}`); setOpen(false); }} className="menu-profile-button w-100 px-4 py-2 my-1"><User/> My Account</button>
+                                                            <button onClick={() => { navigate(`/bookings/${userLogin}`); setOpen(false); }} className="menu-profile-button w-100 px-4 py-2 my-1"><BookMarked/> Bookings</button>
                                                             <button onClick={() => { setToken(null); setOpen(false); }} className="menu-profile-button w-100 px-4 py-2 mb-1"><CircleArrowOutUpLeft/> Sign Out</button>
                                                         </motion.div>
                                                     )}

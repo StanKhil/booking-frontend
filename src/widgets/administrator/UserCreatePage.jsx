@@ -5,26 +5,26 @@ export default function UserCreatePage()
 {
     const {request} = useContext(AppContext);
     
-        const onFormSubmit = (event) => {
-            event.preventDefault();
-            const form = event.target;
-            const formData = new FormData(form);
-            request('/api/user', {
-                method: 'POST',
-                body: formData
-            }).then((data) => {
-                const alertBox = document.getElementById('admin-user-create-alert');
-                alertBox.classList.remove('d-none', 'alert-danger');
-                alertBox.classList.add('alert-success');
-                alertBox.textContent = 'User created successfully!';
-                form.reset();
-            }).catch((error) => {
-                const alertBox = document.getElementById('admin-user-create-alert');
-                alertBox.classList.remove('d-none', 'alert-success');
-                alertBox.classList.add('alert-danger');
-                alertBox.textContent = 'Error creating user: ' + error.message;
-            });
-        }
+    const onFormSubmit = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        request('/api/user', {
+            method: 'POST',
+            body: formData
+        }).then((data) => {
+            const alertBox = document.getElementById('admin-user-create-alert');
+            alertBox.classList.remove('d-none', 'alert-danger');
+            alertBox.classList.add('alert-success');
+            alertBox.textContent = 'User created successfully!';
+            form.reset();
+        }).catch((error) => {
+            const alertBox = document.getElementById('admin-user-create-alert');
+            alertBox.classList.remove('d-none', 'alert-success');
+            alertBox.classList.add('alert-danger');
+            alertBox.textContent = 'Error creating user: ' + error.message;
+        });
+    }
 
     return <>
     <div className="container">
