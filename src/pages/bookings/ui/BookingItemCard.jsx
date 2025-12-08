@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {PenLine, CalendarSync, CalendarOff} from "lucide-react"
 
 export default function BookingItemCard({id}){
-    const {request} = useContext(AppContext);
+    const {request, serverUrl} = useContext(AppContext);
     const [addingFeedback, setAddingFeedback] = useState(false);
     const [booking, setBooking] = useState(null);
     const [message, setMessage] = useState('');
@@ -54,7 +54,6 @@ export default function BookingItemCard({id}){
             return;
         }
 
-        console.log("Booking" + booking);
 
         const feedbackData = {
             realtyId: booking.realtyId,
@@ -126,8 +125,7 @@ export default function BookingItemCard({id}){
             );
         }
     };
-    console.log(booking)
-
+   
     return <>
         {
             booking && <>
@@ -135,8 +133,11 @@ export default function BookingItemCard({id}){
                     <div className="card-body p-3">
                         <div className="d-flex">
                             <div className="flex-shrink-0">
-                                <img src={booking.imageUrl ? booking.imageUrl : `https://placehold.co/100x100/EEE/31343C?font=montserrat&text=${booking.realty.name}`} 
+                                {
+                                    booking.images && <img src={booking.images.length != 0 ? `${serverUrl}/Storage/Item/${booking.images[0].imageUrl}` : `https://placehold.co/100x100/EEE/31343C?font=montserrat&text=${booking.realty.name}`} 
                                     alt={booking.realty.name} className="rounded-2 object-fit-cover" style={{ width: '100px', height: '100px' }}/>
+                                }
+                               
                             </div>
 
                             <div className="flex-grow-1 ms-3 d-flex flex-column justify-content-between">
@@ -167,8 +168,9 @@ export default function BookingItemCard({id}){
                             </div>
 
                             <div className="d-flex flex-column align-items-end justify-content-between position-relative">
-                                <div className="d-flex align-items-center">
-                                    <span className="fw-bold fs-5 me-3">{"$"}{booking.realty.price}</span>
+                                <div className="d-flex align-items-start justify-content-start">
+                                    <span className="fw-bold fs-5 me-3">${booking.realty.price}</span>
+                                    <span className="text-secondary"> Total: ${ Math.round(booking.realty.price * ((new Date(booking.endDate) - new Date(booking.startDate)) / (1000 * 60 * 60 * 24))) } </span>
                                     <button onClick={() => {
                                             setIsVisible(!isVisible);
                                             setAddingFeedback(false);

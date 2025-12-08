@@ -1,16 +1,17 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppContext from "../../features/context/AppContext";
 import './ui/Search.css'
 import RealtySearchCard from "../../widgets/searchRealty/RealtySearchCard"
 import {List, Grid} from "lucide-react"
 
 export default function SearchPage() {
+  const types = ["Hotels", "Apartments", "Villas", "Houses"];
   const [activeTab, setActiveTab] = useState("cultural");
   const {serverUrl, request} = useContext(AppContext);
 
-  const [rating, setRating] = useState(3);
-  const [price, setPrice] = useState(2000);
-  const [propertyTypeFilters, setPropertyTypeFilters] = useState([]);
+  const [rating, setRating] = useState(1);
+  const [price, setPrice] = useState(0);
+  const [propertyTypeFilters, setPropertyTypeFilters] = useState(types);
   const [searchRealties, setSearchRealties] = useState([]);
   const [viewMode, setViewMode] = useState("list");
 
@@ -41,6 +42,14 @@ export default function SearchPage() {
     });
     setSearchRealties(realties);
   }
+
+  useEffect(() => {
+    async function fetchData() {
+        await search();
+    }
+    fetchData();
+    
+  }, []);
 
   return (
     <>
@@ -79,9 +88,9 @@ export default function SearchPage() {
                       <h5>Filter by:</h5>
                       <div className="mb-3">
                           <h6>Your budget (per night)</h6>
-                          <input type="range" className="form-range range-slider" min="100" max="4000" value={price} onChange={(e) => setPrice(e.target.value)} id="priceRange"/>
+                          <input type="range" className="form-range range-slider" min="0" max="4000" value={price} onChange={(e) => setPrice(e.target.value)} id="priceRange"/>
                           <div className="d-flex justify-content-between">
-                              <span>UAH 100</span>
+                              <span>UAH 0</span>
                               <span>UAH 4,000+</span>
                           </div>
                       </div>
@@ -89,25 +98,25 @@ export default function SearchPage() {
                       <div className="mb-3">
                           <h6>Property type</h6>
                           <div className="form-check">
-                              <input className="form-check-input" type="checkbox" value="" id="hotelsFilter" data-filter="Hotels" onChange={handleCheckboxChange}/>
+                              <input className="form-check-input" type="checkbox" value="" id="hotelsFilter" data-filter="Hotels" onChange={handleCheckboxChange} checked={propertyTypeFilters.includes("Hotels")}/>
                               <label className="form-check-label" htmlFor="hotelsFilter">
                                   Hotels <span className="text-muted">(number)</span>
                               </label>
                           </div>
                           <div className="form-check">
-                              <input className="form-check-input" type="checkbox" value="" id="apartmentsFilter" data-filter="Apartments" onChange={handleCheckboxChange}/>
+                              <input className="form-check-input" type="checkbox" value="" id="apartmentsFilter" data-filter="Apartments" onChange={handleCheckboxChange} checked={propertyTypeFilters.includes("Apartments")}/>
                               <label className="form-check-label" htmlFor="apartmentsFilter">
                                   Apartments <span className="text-muted">(number)</span>
                               </label>
                           </div>
                           <div className="form-check">
-                              <input className="form-check-input" type="checkbox" value="" id="villasFilter" data-filter="Villas" onChange={handleCheckboxChange}/>
+                              <input className="form-check-input" type="checkbox" value="" id="villasFilter" data-filter="Villas" onChange={handleCheckboxChange} checked={propertyTypeFilters.includes("Villas")}/>
                               <label className="form-check-label" htmlFor="villasFilter">
                                   Villas <span className="text-muted">(number)</span>
                               </label>
                           </div>
                           <div className="form-check">
-                              <input className="form-check-input" type="checkbox" value="" id="housesFilter" data-filter="Houses" onChange={handleCheckboxChange}/>
+                              <input className="form-check-input" type="checkbox" value="" id="housesFilter" data-filter="Houses" onChange={handleCheckboxChange} checked={propertyTypeFilters.includes("Houses")}/>
                               <label className="form-check-label" htmlFor="housesFilter">
                                   Houses <span className="text-muted">(number)</span>
                               </label>

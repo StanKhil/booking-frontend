@@ -23,6 +23,9 @@ export default function UserCreatePage()
             alertBox.classList.remove('d-none', 'alert-success');
             alertBox.classList.add('alert-danger');
             alertBox.textContent = 'Error creating user: ' + error.message;
+
+            if(error.status.code == 409) alertBox.textContent += error.status.phrase;
+            if(error.status == 400) alertBox.textContent += `\nAll fields are required`;
         });
     }
 

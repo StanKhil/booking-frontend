@@ -22,7 +22,10 @@ export default function RealtyCreatePage()
             const alertBox = document.getElementById('admin-realty-create-alert');
             alertBox.classList.remove('d-none', 'alert-success');
             alertBox.classList.add('alert-danger');
-            alertBox.textContent = 'Error creating realty: ' + error.message;
+            alertBox.textContent = 'Error creating realty: ';
+
+            if(error.status.code == 409) alertBox.textContent += error.status.phrase;
+            if(error.status == 400) alertBox.textContent += `\nAll fields are required`;
         });
     }
 
@@ -86,7 +89,7 @@ export default function RealtyCreatePage()
                 <button type="submit" data-action="create-realty" className="btn btn-success w-100" id="admin-create-realty-button">Create</button>
             </form>
 
-            <div role="alert" className="alert d-none" id="admin-realty-create-alert"></div>
+            <div role="alert" className="alert d-none mt-3" id="admin-realty-create-alert"></div>
 
         </div>
     </>
