@@ -17,13 +17,12 @@ export default function Realty() {
     const [endDate, setEndDate] = useState('');
     const [message, setMessage] = useState('');
 
-    console.log(realty)
-
     useEffect(() => {
         request('/api/realty/' + id)
         .then(r => setRealty(r))
         .catch(e => alert(e.status.message));  
     }, [id]);
+
 
     const onBook = async () => {
         setMessage('');
@@ -61,8 +60,6 @@ export default function Realty() {
             setMessage(error.status?.phrase || error.status?.message || "Booking failed.");
         }
     };
-
-   
 
     return (
         <>
@@ -213,20 +210,21 @@ export default function Realty() {
                     <h3 className="mb-4">Guests who stayed here loved</h3>
                     <div className="row">
                         {realty.feedbacks && realty.feedbacks.length != 0 ? 
-                        <>{realty.feedbacks.map((feedback) => {
+                        <>{realty.feedbacks.map((feedback) => (
                             <div key={feedback.id} className="col-md-4 mb-3">
                                     <div className="card p-3">
                                         <div className="d-flex align-items-center mb-3">
                                             <img src="https://placehold.co/50x50/e0e0e0/333333" className="rounded-circle me-3"/>
                                             <div>
-                                                <h5 className="mb-0">@feedback.UserAccess.UserData.FirstName @feedback.UserAccess.UserData.LastName</h5>
+                                                <h5 className="mb-0">{feedback.user_data.first_name} {feedback.user_data.last_name}</h5>
                                             </div>
                                         </div>
-                                        <p>{feedback.text}</p>
+                                        <p>Comment: {feedback.text}</p>
+                                        <p>Rate: {feedback.rate}</p>
                                         <a href="#" className="text-primary">Read more</a>
                                     </div>
                                 </div>
-                        })}</> 
+                        ))}</> 
                         : 
                         <> <div className="card p-4 mb-5">
                                 <h4><i className="bi bi-search"></i> It looks deserted here...</h4>
