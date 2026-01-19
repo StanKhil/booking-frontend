@@ -19,7 +19,7 @@ export default function Realty() {
 
     useEffect(() => {
         request('/api/realty/' + id)
-        .then(r => setRealty(r))
+        .then(r => {setRealty(r); console.log(r)})
         .catch(e => alert(e.status.message));  
     }, [id]);
 
@@ -83,14 +83,24 @@ export default function Realty() {
 
                     <div className="row mb-5">
                         <div className="col-lg-8">
-                            <img src={realty.images.length > 0 ? realty.images[0].imageUrl : "https://placehold.co/800x400/0071c2/ffffff?text=Main+Property+Image"} className="gallery-main-image mb-2" alt="Main property image"/>
+                            <div>
+                                <img src={realty.images.length > 0 ? realty.images[0].imageUrl : "https://placehold.co/800x400/0071c2/ffffff?text=Main+Property+Image"} className="gallery-main-image mb-2" alt="Main property image"/>
+                            </div>
                             <div className="gallery-grid">
+                            {
+                                realty.images.length > 1 ?
+                                realty.images.filter(img => img.order != 0).map((image) => (
+                                    <img src={image.imageUrl} key={image.imageUrl} alt={image.order}/>
+                                )) :
+                                <>
                                 <img src="https://placehold.co/400x300/e0e0e0/333333?text=Room+Image+1" alt="Room image 1"/>
                                 <img src="https://placehold.co/400x300/e0e0e0/333333?text=Room+Image+2" alt="Room image 2"/>
                                 <img src="https://placehold.co/400x300/e0e0e0/333333?text=Room+Image+3" alt="Room image 3"/>
                                 <img src="https://placehold.co/400x300/e0e0e0/333333?text=Room+Image+4" alt="Room image 4"/>
                                 <img src="https://placehold.co/400x300/e0e0e0/333333?text=Room+Image+5" alt="Room image 5"/>
                                 <img src="https://placehold.co/400x300/e0e0e0/333333?text=Room+Image+6" alt="Room image 6"/>
+                                </>
+                            }
                             </div>
                         </div>
                         
