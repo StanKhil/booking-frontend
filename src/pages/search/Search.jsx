@@ -9,7 +9,7 @@ export default function SearchPage() {
   const [activeTab, setActiveTab] = useState("cultural");
   const {serverUrl, request} = useContext(AppContext);
 
-  const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState(0);
   const [price, setPrice] = useState(0);
   const [propertyTypeFilters, setPropertyTypeFilters] = useState(types);
   const [searchRealties, setSearchRealties] = useState([]);
@@ -125,9 +125,9 @@ export default function SearchPage() {
 
                       <div className="mb-3">
                           <h6>Property rating</h6>
-                          <input type="range" className="form-range range-slider" min="1" max="5" value={rating} onChange={(e) => setRating(e.target.value)} id="ratingRange"/>
+                          <input type="range" className="form-range range-slider" min="0" max="5" value={rating} onChange={(e) => setRating(e.target.value)} id="ratingRange"/>
                           <div className="d-flex justify-content-between">
-                              <span>1</span>
+                              <span>0</span>
                               <span>5</span>
                           </div>
                       </div>
