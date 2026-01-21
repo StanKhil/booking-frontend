@@ -9,9 +9,17 @@ export default function UpdateDeleteRealtyPage()
         event.preventDefault();
         const form = event.target;
         const formData = new FormData(form);
-        request('/api/realty', {
+
+        const filteredData = new FormData();
+        for (let [key, value] of formData.entries()) {
+            if (value !== "" && value !== null && !(value instanceof File && value.size === 0)) {
+                filteredData.append(key, value);
+            }
+        }
+
+        request('/api/realty/', {
             method: 'PATCH',
-            body: formData
+            body: filteredData
         }).then((data) => {
             const alertBox = document.getElementById('admin-realty-update-alert');
             alertBox.classList.remove('d-none', 'alert-danger');
@@ -24,8 +32,13 @@ export default function UpdateDeleteRealtyPage()
             alertBox.classList.add('alert-danger');
             alertBox.textContent = 'Error updating realty: ' + error.message;
 
-            if(error.status.code == 409) alertBox.textContent += error.status.phrase;
-            if(error.status == 400) alertBox.textContent += `\nAll fields are required`;
+            if(error.status === 400) 
+            {
+                console.error("Validation errors:", error.data); 
+            }
+
+            //if(error.status.code == 409) alertBox.textContent += error.status.phrase;
+            //if(error.status == 400) alertBox.textContent += `\nAll fields are required`;
         });
     }
 
