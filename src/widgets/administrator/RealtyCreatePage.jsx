@@ -9,7 +9,7 @@ export default function RealtyCreatePage()
         event.preventDefault();
         const form = event.target;
         const formData = new FormData(form);
-        request('/api/realty', {
+        request('/api/realty/', {
             method: 'POST',
             body: formData
         }).then((data) => {
