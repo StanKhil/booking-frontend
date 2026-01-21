@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 export default function RealtyCard({ realty, view }) 
 {
+    console.log(realty)
     const cardClass = view === 'list' ? 'realty-card list-view' : 'realty-card grid-view';
 
     const renderStars = (rating) => {
