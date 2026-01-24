@@ -10,7 +10,7 @@ export default function UpdateDeleteUserPage()
             event.preventDefault();
             const form = event.target;
             const formData = new FormData(form);
-            request('/api/user/' + formData.get('user-former-login'), {
+            request('/api/user/', {
                 method: 'PATCH',
                 body: formData
             }).then((data) => {
