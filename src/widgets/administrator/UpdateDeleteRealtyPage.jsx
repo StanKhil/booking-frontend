@@ -46,7 +46,7 @@ export default function UpdateDeleteRealtyPage()
         event.preventDefault();
         const form = event.target;
         const formData = new FormData(form);
-        request('/api/realty/' + formData.get('realty-delete-slug'), {
+        request('/api/realty/' + formData.get('realty-delete-slug') + "/", {
             method: 'DELETE',
         }).then((data) => {
             const alertBox = document.getElementById('admin-realty-delete-alert');
