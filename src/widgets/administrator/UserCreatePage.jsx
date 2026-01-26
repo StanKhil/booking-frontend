@@ -9,7 +9,7 @@ export default function UserCreatePage()
         event.preventDefault();
         const form = event.target;
         const formData = new FormData(form);
-        request('/api/user', {
+        request('/api/user/', {
             method: 'POST',
             body: formData
         }).then((data) => {
@@ -84,7 +84,7 @@ export default function UserCreatePage()
         </form>
 
 
-        <div role="alert" className="alert d-none" id="admin-user-create-alert"></div>
+        <div role="alert" className="alert d-none mt-3" id="admin-user-create-alert"></div>
 
     </div>
     </>
