@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useContext, useState } from 'react'
 import './ui/RealtySearchCard.css';
 import { MapPin, Star, Heart } from 'lucide-react';
 import { Link } from "react-router-dom";
+import AppContext from '../../features/context/AppContext';
 
 
 export default function RealtyCard({ realty, view }) 
 {
+    const {request} = useContext(AppContext);
+    const [isLiked, setIsLiked] = useState(false);
     const cardClass = view === 'list' ? 'realty-card list-view' : 'realty-card grid-view';
+
+    const handleWishlistClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        setIsLiked(!isLiked);
+        //request('/api/liked-realties/' + )
+
+    }
+
 
     const renderStars = (rating) => {
         const stars = [];
@@ -33,7 +46,8 @@ export default function RealtyCard({ realty, view })
         if (score >= 1) return 'Very Bad';
         return 'Plasant';
     };
-    
+
+  
 
     if (view === 'list') {
         return (
@@ -45,7 +59,7 @@ export default function RealtyCard({ realty, view })
                                 realty.images[0] &&
                                 <img src={realty.images[0].imageUrl} className="realty-image list-image" alt={realty.name} />
                             }
-                            <button className="wishlist-btn"><Heart size={20} fill="white" stroke="black" /></button>
+                            <button onClick={handleWishlistClick} className="wishlist-btn"><Heart size={20} fill={isLiked ? "#ff4d4d" : "white"} stroke={isLiked ? "#ff4d4d" : "black"}/></button>
                         </div>
                     </div>
                     <div className="col-md-6 p-3 d-flex flex-column justify-content-between">

@@ -1,0 +1,67 @@
+.filter-btn
+{
+    border-radius: 90px;
+    padding: 8px 24px;
+    font-weight: 300;
+    font-size: 16px !important;
+    border: 1px solid transparent;
+    font-size: 0.9rem;
+}
+
+.btn-active {
+    background-color: #f0f7ff;
+    border-color: #006ce4;
+    color: #006ce4;
+}
+
+.btn-active:hover {
+    background-color: #f0f7ff;
+    border-color: #006ce4;
+    color: #006ce4;
+    cursor: default;
+}
+
+.btn-inactive {
+    border-color: transparent;
+    color: #474747;
+}
+
+.btn-inactive:hover
+{
+    background-color: #f5f5f5;
+}
+
+.past-booking-card {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 12px;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.past-booking-card:hover {
+    background-color: #f5f5f5; 
+}
+
+.booking-thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-right: 16px;
+}
+
+.booking-city {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.booking-details {
+    font-size: 0.85rem;
+    color: #595959;
+    margin-bottom: 0;
+}

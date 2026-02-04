@@ -12,6 +12,7 @@ import Profile from '../pages/profile/Profile';
 import Realties from '../pages/realties/Realties';
 import Realty from '../pages/realty/Realty';
 import Bookings from '../pages/bookings/Bookings';
+import Favourites from '../pages/favourites/Favourites';
 import AdministratorPage from '../pages/administrator/Administrator';
 
 const tokenStorageKey = "react-token";
@@ -100,6 +101,7 @@ function App() {
           <Route path='realties' element={<Realties/>}/>
           <Route path='realty/:id' element={<Realty/>}/>
           <Route path='bookings/:login' element={<Bookings/>}/>
+          <Route path='favourites/:login' element={<Favourites/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
