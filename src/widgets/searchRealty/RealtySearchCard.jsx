@@ -1,25 +1,64 @@
 import React, { useContext, useState } from 'react'
 import './ui/RealtySearchCard.css';
 import { MapPin, Star, Heart } from 'lucide-react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AppContext from '../../features/context/AppContext';
 
 
 export default function RealtyCard({ realty, view }) 
 {
-    const {request} = useContext(AppContext);
+    const {request, user} = useContext(AppContext);
     const [isLiked, setIsLiked] = useState(false);
     const cardClass = view === 'list' ? 'realty-card list-view' : 'realty-card grid-view';
+    const navigate = useNavigate();
+    
+    //console.log(user);
 
     const handleWishlistClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
 
+        if(!user)
+            { 
+            navigate("/login")
+            return;
+        }
+
+        const likedData = {
+            "realty_id": realty.id,
+            "user_login": user.Login
+        }
+
         setIsLiked(!isLiked);
-        //request('/api/liked-realties/' + )
+        if(!isLiked)
+        {
+            request('/api/liked-realties/', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(likedData)
+            }).then((r) => {
+                console.log(r);
+            })
+        }
+        //else
+        //{
+        //    request('/api/liked-realties/', {
+        //        method: 'POST',
+        //        body: {
+        //            "realty_id": realty.id,
+        //            "user_login": user.Login
+        //        }
+        //    }).then((r) => {
+        //        console.log(r);
+        //    })
+        //}
+        
 
     }
 
+    console.log(realty);
 
     const renderStars = (rating) => {
         const stars = [];
