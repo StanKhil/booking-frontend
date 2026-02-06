@@ -8,7 +8,7 @@ import AppContext from '../../features/context/AppContext';
 export default function RealtyCard({ realty, view }) 
 {
     const {request, user} = useContext(AppContext);
-    const [isLiked, setIsLiked] = useState(false);
+    const [isLiked, setIsLiked] = useState(realty.liked || false);
     const cardClass = view === 'list' ? 'realty-card list-view' : 'realty-card grid-view';
     const navigate = useNavigate();
     

@@ -7,7 +7,7 @@ import {List, Grid} from "lucide-react"
 export default function SearchPage() {
   const types = ["Hotels", "Apartments", "Villas", "Houses"];
   const [activeTab, setActiveTab] = useState("cultural");
-  const {serverUrl, request} = useContext(AppContext);
+  const {serverUrl, request, user} = useContext(AppContext);
 
   const [rating, setRating] = useState(0);
   const [price, setPrice] = useState(0);
@@ -33,7 +33,8 @@ export default function SearchPage() {
     const filters = {
         "Price": parseFloat(price),
         "Checkboxes": propertyTypeFilters,
-        "Rating": parseInt(rating)
+        "Rating": parseInt(rating),
+        "login": user ? user.Login : null
     }
     const realties = await request('/api/realty/search', {
         method: 'POST',
