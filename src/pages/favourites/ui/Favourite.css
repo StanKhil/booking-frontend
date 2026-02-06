@@ -1,0 +1,29 @@
+.favourites-scroll {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.favourites-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.favourite-card {
+  min-width: 260px;
+  max-width: 260px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.favourite-image {
+  height: 170px;
+  object-fit: cover;
+}
+
+.favourite-heart {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border-radius: 50%;
+  padding: 6px;
+}

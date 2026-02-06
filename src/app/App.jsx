@@ -46,7 +46,7 @@ function App() {
                 resolve(j.data);
             }
             else{
-                if(j.status.code == 401){
+                if(j.status.code == 401 || j.status.code == 400){
                   alert("UnAuthorized")
                 }
                 reject(j);

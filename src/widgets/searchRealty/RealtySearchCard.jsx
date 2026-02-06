@@ -8,7 +8,7 @@ import AppContext from '../../features/context/AppContext';
 export default function RealtyCard({ realty, view }) 
 {
     const {request, user} = useContext(AppContext);
-    const [isLiked, setIsLiked] = useState(realty.liked || false);
+    const [isLiked, setIsLiked] = useState(false || (realty.liked && realty.liked != "error"));
     const cardClass = view === 'list' ? 'realty-card list-view' : 'realty-card grid-view';
     const navigate = useNavigate();
     
@@ -19,7 +19,7 @@ export default function RealtyCard({ realty, view })
         e.stopPropagation();
 
         if(!user)
-            { 
+        { 
             navigate("/login")
             return;
         }
@@ -42,20 +42,18 @@ export default function RealtyCard({ realty, view })
                 console.log(r);
             })
         }
-        //else
-        //{
-        //    request('/api/liked-realties/', {
-        //        method: 'POST',
-        //        body: {
-        //            "realty_id": realty.id,
-        //            "user_login": user.Login
-        //        }
-        //    }).then((r) => {
-        //        console.log(r);
-        //    })
-        //}
-        
-
+        else
+        {
+            request('/api/liked-realties/', {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(likedData)
+            }).then((r) => {
+                console.log(r);
+            })
+        }
     }
 
     console.log(realty);
