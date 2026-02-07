@@ -1,12 +1,14 @@
+import { Heart, MapPin } from "lucide-react";
 
 export default function FavouriteCard({realty})
 {
+    console.log("Fav: ", realty)
     return (
         <div className="card favourite-card shadow-sm border-0">
             <div className="position-relative">
-                <img src={`${realty?.image || "https://placehold.co/400x300/e0e0e0/333333?text=" + realty.name}`}
+                <img src={`${realty?.images[0].imageUrl || "https://placehold.co/400x300/e0e0e0/333333?text=" + realty.name}`}
                     className="card-img-top favourite-image"
-                    alt={realty?.title}
+                    alt={realty?.name}
                 />
 
                 <button className="btn btn-light favourite-heart">
@@ -22,7 +24,7 @@ export default function FavouriteCard({realty})
                 </div>
 
                 <div className="small text-muted mb-2">
-                    <MapPin size={14} className="me-1" /> ${realty.city.name} ${realty.city.country.name}
+                    <MapPin size={14} className="me-1" /> {realty.city ? realty.city.name : ""} {realty.city ? realty.city.country.name : ""}
                 </div>
 
             

@@ -19,13 +19,11 @@ export default function Favourites()
             request(`/api/liked-realties/?login=${login}`, {
                     method: 'GET',
                 })
-                .then(r => setLikedRealties(r.data || []))
+                .then(r => setLikedRealties(r || []))
                 .catch(e => console.error(err));
         }
-       
     }, [login]);
 
-    console.log(login);
     console.log(likedRealties);
     return <>
         <div className="container py-4">
@@ -46,7 +44,7 @@ export default function Favourites()
 
             <div className="favouritese-scroll d-flex gap-4 pb-3">
                 {likedRealties.map((realty) => (
-                    <FavouriteCard key={realty.id} realty={realty}/>
+                    <FavouriteCard key={realty.id} realty={realty.realty}/>
                 ))}
             </div>
         </div>
