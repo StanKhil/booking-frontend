@@ -11,8 +11,6 @@ export default function RealtyCard({ realty, view })
     const [isLiked, setIsLiked] = useState(false || (realty.liked && realty.liked != "error"));
     const cardClass = view === 'list' ? 'realty-card list-view' : 'realty-card grid-view';
     const navigate = useNavigate();
-    
-    //console.log(user);
 
     const handleWishlistClick = (e) => {
         e.preventDefault();
@@ -44,7 +42,7 @@ export default function RealtyCard({ realty, view })
         }
         else
         {
-            request('/api/liked-realties/', {
+            request(`/api/liked-realties/${realty.liked.id}/`, {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json"
@@ -55,8 +53,6 @@ export default function RealtyCard({ realty, view })
             })
         }
     }
-
-    console.log(realty);
 
     const renderStars = (rating) => {
         const stars = [];
