@@ -21,6 +21,7 @@ export default function Realty() {
         request('/api/realty/' + id)
         .then(r => {setRealty(r); console.log(r)})
         .catch(e => alert(e.status.message));  
+
     }, [id]);
 
 
@@ -76,7 +77,6 @@ export default function Realty() {
                             </p>
                         </div>
                         <div className="d-flex align-items-center header-buttons">
-                            <button className="btn btn-outline-primary me-2"><Heart strokeWidth={1} /></button>
                             <button className="btn btn-primary">Reserve</button>
                         </div>
                     </div>
@@ -166,8 +166,7 @@ export default function Realty() {
                 </div>   
                 <div className="card p-4 mb-5">
                     <h3 className="mb-4">About this property</h3>
-                    <p>
-                        {realty.description}
+                    <p id="description-block"> {realty.description}
                     </p>
                 </div>  
                     

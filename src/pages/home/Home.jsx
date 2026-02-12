@@ -12,6 +12,45 @@ export default function HomePage() {
 
   return (
     <main className="container my-5">
+
+    <section className="mb-5">
+      <h2 className="section-title mb-4">Why Booking.com?</h2>
+      <div className="row g-4">
+        {[
+          {
+            title: "Book now, pay at the property",
+            text: "FREE cancellation on most rooms",
+            icon: "bi-credit-card"
+          },
+          {
+            title: "300M+ reviews from fellow travelers",
+            text: "Get trusted information from guests like you",
+            icon: "bi-hand-thumbs-up"
+          },
+          {
+            title: "2+ million properties worldwide",
+            text: "Hotels, guest houses, apartments and more",
+            icon: "bi-globe"
+          },
+          {
+            title: "Trusted 24/7 customer service you can rely on",
+            text: "We're always here to help",
+            icon: "bi-headset"
+          }
+        ].map((item, index) => (
+          <div key={index} className="col-md-6 col-lg-3">
+            <div className="card card-custom h-100 p-4 text-center">
+              <div className="mb-3">
+                <i className={`bi ${item.icon}`} style={{ fontSize: "2rem", color: "#003580" }}></i>
+              </div>
+              <h5 className="fw-bold">{item.title}</h5>
+              <p className="text-muted mb-0">{item.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
       <section className="mb-5">
         <h2 className="section-title">Offers</h2>
         <p className="mb-4">Promotions, deals and special offers for you</p>

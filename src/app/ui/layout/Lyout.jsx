@@ -44,6 +44,11 @@ export default function Layout() {
                         <div>
                             <nav className="navbar navbar-expand-sm navbar-toggleable-sm navbar-light">
                                 <div className="container-fluid">
+                                    <div className="language">
+                                        <button className="language-button">
+                                            <img className="mx-2" src={`${serverUrl}/Storage/Item/us.png`}/>
+                                        </button>
+                                    </div>
                                     <button className="list-property-button">List your property</button>
 
                                     {user && userLogin ? (
