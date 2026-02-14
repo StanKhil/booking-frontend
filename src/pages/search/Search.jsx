@@ -11,8 +11,11 @@ export default function SearchPage() {
 
   const [rating, setRating] = useState(0);
   const [price, setPrice] = useState(0);
+  const [selectedCity, setSelectedCity] = useState("");
+
   const [propertyTypeFilters, setPropertyTypeFilters] = useState(types);
   const [searchRealties, setSearchRealties] = useState([]);
+  const [cities, setCities] = useState([]);
   const [viewMode, setViewMode] = useState("list");
 
   const handleTabClick = (tab) => setActiveTab(tab);
@@ -25,7 +28,7 @@ export default function SearchPage() {
     }
     else
     {
-        setPropertyTypeFilters(propertyTypeFilters.filter(item => item != value))
+        setPropertyTypeFilters(propertyTypeFilters.filter(item => item != value));
     }
   }
 
@@ -34,8 +37,10 @@ export default function SearchPage() {
         "Price": parseFloat(price),
         "Checkboxes": propertyTypeFilters,
         "Rating": parseInt(rating),
+        "City": selectedCity,
         "login": user ? user.Login : null
     }
+    console.log(filters);
     const realties = await request('/api/realty/search', {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -43,6 +48,12 @@ export default function SearchPage() {
     });
     setSearchRealties(realties);
   }
+
+  useEffect(() => {
+        request('/api/cities/').then(r => {
+            setCities(r);
+        });
+    }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -87,51 +98,68 @@ export default function SearchPage() {
               <div className="col-lg-3 mb-4">
                   <div className="filter-section">
                       <h5>Filter by:</h5>
-                      <div className="mb-3">
-                          <h6>Your budget (per night)</h6>
-                          <input type="range" className="form-range range-slider" min="0" max="4000" value={price} onChange={(e) => setPrice(e.target.value)} id="priceRange"/>
-                          <div className="d-flex justify-content-between">
-                              <span>UAH 0</span>
-                              <span>UAH 4,000+</span>
-                          </div>
-                      </div>
 
-                      <div className="mb-3">
-                          <h6>Property type</h6>
-                          <div className="form-check">
-                              <input className="form-check-input" type="checkbox" value="" id="hotelsFilter" data-filter="Hotels" onChange={handleCheckboxChange} checked={propertyTypeFilters.includes("Hotels")}/>
-                              <label className="form-check-label" htmlFor="hotelsFilter">
-                                  Hotels <span className="text-muted">(number)</span>
-                              </label>
-                          </div>
-                          <div className="form-check">
-                              <input className="form-check-input" type="checkbox" value="" id="apartmentsFilter" data-filter="Apartments" onChange={handleCheckboxChange} checked={propertyTypeFilters.includes("Apartments")}/>
-                              <label className="form-check-label" htmlFor="apartmentsFilter">
-                                  Apartments <span className="text-muted">(number)</span>
-                              </label>
-                          </div>
-                          <div className="form-check">
-                              <input className="form-check-input" type="checkbox" value="" id="villasFilter" data-filter="Villas" onChange={handleCheckboxChange} checked={propertyTypeFilters.includes("Villas")}/>
-                              <label className="form-check-label" htmlFor="villasFilter">
-                                  Villas <span className="text-muted">(number)</span>
-                              </label>
-                          </div>
-                          <div className="form-check">
-                              <input className="form-check-input" type="checkbox" value="" id="housesFilter" data-filter="Houses" onChange={handleCheckboxChange} checked={propertyTypeFilters.includes("Houses")}/>
-                              <label className="form-check-label" htmlFor="housesFilter">
-                                  Houses <span className="text-muted">(number)</span>
-                              </label>
-                          </div>
-                      </div>
+                        <div className="mb-3">
+                            <h6>Your budget (per night)</h6>
+                            <input type="range" className="form-range range-slider" min="0" max="4000" value={price} onChange={(e) => setPrice(e.target.value)} id="priceRange"/>
+                            <div className="d-flex justify-content-between">
+                                <span>UAH 0</span>
+                                <span>UAH 4,000+</span>
+                            </div>
+                        </div>
 
-                      <div className="mb-3">
-                          <h6>Property rating</h6>
-                          <input type="range" className="form-range range-slider" min="0" max="5" value={rating} onChange={(e) => setRating(e.target.value)} id="ratingRange"/>
-                          <div className="d-flex justify-content-between">
-                              <span>0</span>
-                              <span>5</span>
-                          </div>
-                      </div>
+                        <div className="mb-3">
+                            <h6>Property type</h6>
+                            <div className="form-check">
+                                <input className="form-check-input" type="checkbox" value="" id="hotelsFilter" data-filter="Hotels" onChange={handleCheckboxChange} checked={propertyTypeFilters.includes("Hotels")}/>
+                                <label className="form-check-label" htmlFor="hotelsFilter">
+                                    Hotels <span className="text-muted">(number)</span>
+                                </label>
+                            </div>
+                            <div className="form-check">
+                                <input className="form-check-input" type="checkbox" value="" id="apartmentsFilter" data-filter="Apartments" onChange={handleCheckboxChange} checked={propertyTypeFilters.includes("Apartments")}/>
+                                <label className="form-check-label" htmlFor="apartmentsFilter">
+                                    Apartments <span className="text-muted">(number)</span>
+                                </label>
+                            </div>
+                            <div className="form-check">
+                                <input className="form-check-input" type="checkbox" value="" id="villasFilter" data-filter="Villas" onChange={handleCheckboxChange} checked={propertyTypeFilters.includes("Villas")}/>
+                                <label className="form-check-label" htmlFor="villasFilter">
+                                    Villas <span className="text-muted">(number)</span>
+                                </label>
+                            </div>
+                            <div className="form-check">
+                                <input className="form-check-input" type="checkbox" value="" id="housesFilter" data-filter="Houses" onChange={handleCheckboxChange} checked={propertyTypeFilters.includes("Houses")}/>
+                                <label className="form-check-label" htmlFor="housesFilter">
+                                    Houses <span className="text-muted">(number)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="mb-3">
+                            <h6>Property rating</h6>
+                            <input type="range" className="form-range range-slider" min="0" max="5" value={rating} onChange={(e) => setRating(e.target.value)} id="ratingRange"/>
+                            <div className="d-flex justify-content-between">
+                                <span>0</span>
+                                <span>5</span>
+                            </div>
+                        </div>
+
+                        <div className="mb-3">
+                            <div className="row">
+                                <div className="col-2 d-flex justify-content-center align-items-center">
+                                    <h6>City</h6>
+                                </div>
+                                <div className="col-10">
+                                    <select className="form-select" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
+                                        <option key={-1} value={""}>-- All --</option>
+                                        {cities.map((city, index) => (
+                                            <option key={index} value={city}>{city}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
                   </div>
               </div>

@@ -6,6 +6,18 @@ import { Link } from "react-router-dom";
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState("cultural");
   const {serverUrl} = useContext(AppContext);
+  const [categories] = useState(["pills-cultural", "pills-festivals", "pills-urban", "pills-nature", "pills-historical", "pills-wine", "pills-romantic"]);
+  const [cities] = useState([{town: "Poltava", src: "poltava.jpg", distance: "303 km from Kyiv"},
+              {town: "Sumy", src: "sumy.jpg", distance: "305 km from Kyiv"},
+              {town: "Dnipro", src: "dnipro.jpg",  distance: "394 km from Kyiv"},
+              {town: "Kharkiv", src: "kharkiv.jpg",  distance: "409 km from Kyiv"},
+              {town: "Chernivtsi", src: "chernivtsi.jpg", distance: "410 km from Kyiv"},
+              {town: "Ivano-Frankivsk", src: "ivanoFr.jpg", distance: "451 km from Kyiv"},
+              {town: "Kyiv", src: "kyiv.jpg", distance: "444 km away"},
+              {town: "Ternopil'", src: "ternopil.jpg", distance: "513 km from Kyiv"},
+              {town: "Verkhovyna'", src: "verkhovyna.jpg", distance: "484 km from Kyiv"},
+              {town: "Lviv'", src: "lviv.jpg", distance: "622 km from Kyiv"},
+              {town: "Lutsk'", src: "lutsk.jpg", distance: "619 km from Kyiv"},]);
 
 
   const handleTabClick = (tab) => setActiveTab(tab);
@@ -113,33 +125,27 @@ export default function HomePage() {
         </ul>
 
           <div className="tab-content" id="pills-tabContent">
-            <div className="tab-pane fade show active" id="pills-cultural" role="tabpanel" aria-labelledby="pills-cultural-tab">
-                <div className="row g-4">
-                  {
-                    [
-                      {town: "Poltava", src: "poltava.jpg", distance: "303 km from Kyiv"},
-                      {town: "Sumy", src: "sumy.jpg", distance: "305 km from Kyiv"},
-                      {town: "Dnipro", src: "dnipro.jpg",  distance: "394 km from Kyiv"},
-                      {town: "Kharkiv", src: "kharkiv.jpg",  distance: "409 km from Kyiv"},
-                      {town: "Chernivtsi", src: "chernivtsi.jpg", distance: "410 km from Kyiv"},
-                      {town: "Ivano-Frankivsk", src: "ivanoFr.jpg", distance: "451 km from Kyiv"},
-                    ].map((tab, index) => {
-                      return (
-                        <div key={index} className="col-md-4 col-lg-2">
-                        <div className="card card-custom">
-                            <img src={`${serverUrl}/Storage/Item/${tab.src}`} className="card-img-top-custom" alt={tab.town}/>
-                            <div className="card-body">
-                                <h5 className="card-title fw-bold">{tab.town}</h5>
-                                <p className="card-text text-muted">{tab.distance}</p>
+            {categories.map((category, index) => (
+                <div className={`tab-pane fade ${index == 0 ? "show active" : ""}`} key={category} id={category} role="tabpanel" aria-labelledby={category + "-tab"}>
+                  <div className="row g-4">
+                    {
+                      cities.sort(() => Math.random() - 0.5).slice(0, 6).map((tab, index) => {
+                        return (
+                          <div key={index} className="col-md-4 col-lg-2">
+                          <div className="card card-custom">
+                              <img src={`${serverUrl}/Storage/Item/${tab.src}`} className="card-img-top-custom" alt={tab.town}/>
+                              <div className="card-body">
+                                  <h5 className="card-title fw-bold">{tab.town}</h5>
+                                  <p className="card-text text-muted">{tab.distance}</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      )
-                    })
-                  }
-                </div>
-            </div>
-            {/*@* Other tab panes would go here, structured similarly *@*/}
+                        )
+                      })
+                    }
+                  </div>
+              </div>
+            ))}
         </div>
       </section>
 
