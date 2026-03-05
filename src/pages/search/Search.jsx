@@ -89,7 +89,6 @@ export default function SearchPage() {
 
         <nav aria-label="breadcrumb">
           <ol className="breadcrumb bg-transparent mb-2 ps-0">
-              {/* ....Ukraine/Kyiv */}
           </ol>
         </nav>
 

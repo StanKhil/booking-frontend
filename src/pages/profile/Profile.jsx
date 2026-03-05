@@ -1,10 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import AppContext from "../../features/context/AppContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function Profile() {
-  const { request } = useContext(AppContext);
+  const { request, user, token } = useContext(AppContext);
   const { login } = useParams();
+   const navigate = useNavigate();
 
   const [activePage, setActivePage] = useState("personal-details");
   const [profile, setProfile] = useState(null);
@@ -16,6 +17,13 @@ export default function Profile() {
     number: "",
     exp: "",
   });
+
+  if(!user)
+  { 
+      navigate("/login")
+      return;
+  }
+
 
   useEffect(() => {
     (async () => {
@@ -57,6 +65,8 @@ export default function Profile() {
   if (loading) return <div className="text-center mt-5">Loading profile...</div>;
   if (error) return <div className="alert alert-danger mt-5">{error}</div>;
   if (!profile) return null;
+
+  console.log(profile);
 
   return (
     <div className="container py-5">
@@ -100,7 +110,7 @@ export default function Profile() {
                 <div className="profile-field-item py-4">
                   <h3 className="h6 fw-semibold text-dark mb-1">Name</h3>
                   <span className="text-secondary">
-                    {profile.firstName} {profile.lastName}
+                    {profile.first_name} {profile.last_name}
                   </span>
                 </div>
 

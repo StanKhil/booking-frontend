@@ -48,6 +48,7 @@ export default function UpdateDeleteRealtyPage()
         const formData = new FormData(form);
         request('/api/realty/' + formData.get('realty-delete-slug') + "/", {
             method: 'DELETE',
+            body: formData
         }).then((data) => {
             const alertBox = document.getElementById('admin-realty-delete-alert');
             alertBox.classList.remove('d-none', 'alert-danger');
@@ -139,7 +140,7 @@ export default function UpdateDeleteRealtyPage()
                 <button type="submit" data-action="update-user" className="btn btn-info w-100" id="admin-realty-update-button">Update</button>
             </form>
 
-            <div role="alert" className="alert d-none" id="admin-realty-update-alert"></div>
+            <div role="alert" className="alert d-none mt-3" id="admin-realty-update-alert"></div>
 
             <hr/>
             <h3 className="mt-5">Delete Realty</h3>
@@ -149,11 +150,11 @@ export default function UpdateDeleteRealtyPage()
                 <div className="mb-3">
                     <label htmlFor="realty-delete-slug" className="form-label">SLug</label>
                     <input type="text" name="realty-delete-slug"  className="form-control @classAddon" id="realty-delete-slug" aria-describedby="Delete slug" placeholder="Enter realty's current slug"/>
-                    <div className="invalid-feedback"></div>
+                    <div className="invalid-feedback mt-3"></div>
                 </div>
 
                 <button data-action="delete-realty" className="btn btn-danger w-100" id="admin-realty-delete-button">Delete</button>
-                <div role="alert" className="alert mb-3 d-none" id="admin-realty-delete-alert"></div>
+                <div role="alert" className="alert mb-3 mt-3 d-none" id="admin-realty-delete-alert"></div>
             </form>
         </div>
     </>

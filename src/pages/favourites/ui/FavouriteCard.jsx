@@ -10,7 +10,6 @@ export default function FavouriteCard({realty})
     const {request, user} = useContext(AppContext);
     const navigate = useNavigate();
 
-    console.log(realty);
     const handleWishlistClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
