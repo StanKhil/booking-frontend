@@ -106,23 +106,18 @@ export default function BookingItemCard({id}){
             endDate
         };
         try {
-            const response = await request("/api/booking-item", {
+            const response = await request(`/api/booking-item/${booking.id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(updatedBookingData)
             });
-            setBooking(response);   
+            setBooking(response);
             setIsUpdatingBooking(false);
             setUpdatingMessage("Booking updated successfully!");
         } catch (error) {
-            console.error("Booking update error:", error);
-            setUpdatingMessage(
-                error.status?.phrase ||
-                error.status?.message ||
-                "Booking update failed."
-            );
+            setUpdatingMessage(error.status.phrase);
         }
     };
    

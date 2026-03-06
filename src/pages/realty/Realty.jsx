@@ -4,9 +4,7 @@ import { useParams } from "react-router-dom";
 import "./ui/Realty.css"
 import Feedback from "./ui/Feedback";
 import { 
-    MapPin, Share2, Heart, Star, Wifi, ParkingCircle, Ban, 
-    Clock, Check, Utensils, Building, Plane, Train, 
-    Info, User, Calendar
+    MapPin, Calendar
 } from "lucide-react";
 
 export default function Realty() {
@@ -23,6 +21,17 @@ export default function Realty() {
         .catch(e => alert(e.status.message));  
 
     }, [id]);
+
+    console.log(user);
+
+    const getRatingText = (score) => {
+        if (score >= 5) return 'Very Good';
+        if (score >= 4) return 'Good';
+        if (score >= 3) return 'Average';
+        if (score >= 2) return 'Bad';
+        if (score >= 1) return 'Very Bad';
+        return 'To rate';
+    };
 
 
     const onBook = async () => {
@@ -112,7 +121,7 @@ export default function Realty() {
                                     <div className="d-flex align-items-center mb-3">
                                         <div className="review-badge me-2">{realty.accRates ? realty.accRates.avgRate : 0}</div>
                                         <div>
-                                            <span className="fw-bold d-block lh-1">Excellent</span>
+                                            <span className="fw-bold d-block lh-1">{getRatingText(realty.accRates ? realty.accRates.avgRate : 0)}</span>
                                             <span className="text-muted small">{realty.accRates ? realty.accRates.countRate : 0} reviews</span>
                                         </div>
                                     </div>
@@ -223,7 +232,7 @@ export default function Realty() {
                             <div key={feedback.id} className="col-md-4 mb-3">
                                     <div className="card p-3">
                                         <div className="d-flex align-items-center mb-3">
-                                            <img src="https://placehold.co/50x50/e0e0e0/333333" className="rounded-circle me-3"/>
+                                            <img src={`https://placehold.co/50x50/003580/f2f6fa?text=${feedback.user_data.last_name.substr(0, 1)}`} className="rounded-circle me-3"/>
                                             <div>
                                                 <h5 className="mb-0">{feedback.user_data.first_name} {feedback.user_data.last_name}</h5>
                                             </div>

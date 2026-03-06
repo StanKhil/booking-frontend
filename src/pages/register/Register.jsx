@@ -41,6 +41,7 @@ export default function Register() {
     if (!form.userPassword) newErrors.userPassword = "Password is required";
     if (form.userPassword !== form.userRepeat)
       newErrors.userRepeat = "Passwords do not match";
+
     if (!form.agree) newErrors.agree = "You must agree with policies";
 
     if (Object.keys(newErrors).length > 0) {
@@ -54,23 +55,37 @@ export default function Register() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      console.log(response);
 
-      if (response) {
-        console.log(response);
+      console.log("Response", response);
+
+      if (response.data === "Registration successful")
+      {
         setMessage("Account successfully created! Redirecting...");
         setTimeout(() => navigate("/login"), 2000);
+      } 
+      else if (response.status && !response.status.isOk) 
+      {
+        if (response.data && response.data.errors) {
+          setErrors(response.data.errors);
+          setMessage("Registration failed. Please fix the errors.");
+        }
       }
     } catch (err) {
-      console.error(err);
-      setMessage("Registration failed. Try again later.");
+      console.error("Catch block triggered:", err);
+      
+      if (err && err.data && err.data.errors) {
+        setErrors(err.data.errors);
+        setMessage("Registration failed. Please fix the errors.");
+      } else {
+        setMessage("Registration failed. Try again later.");
+      }
     }
   };
 
   return (
     <div className="container">
       <div className="d-flex justify-content-center">
-        <div className="mt-5 signup-form">
+        <div className="mt-5 signup-form w-50">
           <h4>Sign in or create an account</h4>
           <p>You can sign in using your Booking.com account to access our services.</p>
 
@@ -183,7 +198,7 @@ export default function Register() {
                 onChange={handleChange}
                 placeholder="Repeat your password"
               />
-              <div className="invalid-feedback">{errors.userRepeat}</div>
+              <div className="invalid-feedback ">{errors.userRepeat}</div>
             </div>
 
             <div className="form-check mb-3">

@@ -77,7 +77,7 @@ export default function RealtyCard({ realty, view })
         if (score >= 3) return 'Average';
         if (score >= 2) return 'Bad';
         if (score >= 1) return 'Very Bad';
-        return 'Plasant';
+        return 'To rate';
     };
 
   

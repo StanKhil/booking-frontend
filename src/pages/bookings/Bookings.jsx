@@ -11,6 +11,7 @@ export default function Bookings(){
     const {login} = useParams();
     const [bookings, setBookings] = useState([]);
     const [hasActive, setHasActive] = useState(false);
+    const [filteredBookings, setFilteredBookings] = useState([])
     const [activeFilter, setActiveFilter] = useState("past")
 
     useEffect(() => {
@@ -18,23 +19,28 @@ export default function Bookings(){
             .then(user => {
                 const items = user.bookingItems
                 setBookings(items); 
+                console.log(items);
 
                 const active = items.some(booking => booking.deletedAt == null && new Date(booking.endDate) > Date.now());
                 setHasActive(active);
+
+                
             })
             .catch(e => console.error(e));
     }, [login]);
 
-    const filteredBookings = bookings.filter(booking => {
-        if(activeFilter === "cancelled")
-        {
-            return booking.deletedAt !== null;
-        }
-        else
-        {
-            return booking.deletedAt === null && new Date(booking.endDate) < Date.now();
-        }
-    })
+    useEffect(() => {
+        setFilteredBookings(bookings.filter(booking => {
+            if(activeFilter === "cancelled")
+            {
+                return booking.deletedAt !== null;
+            }
+            else
+            {
+                return booking.deletedAt === null && new Date(booking.endDate) < Date.now();
+            }
+        }));
+    }, [activeFilter, bookings]);
 
     const activeBookings = bookings.filter(booking => {
         return new Date(booking.endDate) > Date.now() && booking.deletedAt === null;
