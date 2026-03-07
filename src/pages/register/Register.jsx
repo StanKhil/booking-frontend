@@ -58,7 +58,7 @@ export default function Register() {
 
       console.log("Response", response);
 
-      if (response.data === "Registration successful")
+      if (response == "Registration successful")
       {
         setMessage("Account successfully created! Redirecting...");
         setTimeout(() => navigate("/login"), 2000);

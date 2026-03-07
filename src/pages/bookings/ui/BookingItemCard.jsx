@@ -33,8 +33,7 @@ export default function BookingItemCard({id}){
             method: 'DELETE'
         })
         .then(() => {
-            alert('Booking deleted successfully');
-            setBooking(null);
+            if(confirm("Are you sure you want to delete the booking?")) setBooking(null);
         })
         .catch(e => alert(e.status.message));
         setAddingFeedback(false);

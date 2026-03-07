@@ -144,7 +144,7 @@ export default function RealtyCard({ realty, view })
                         <div className="rating-score-box d-inline-flex justify-content-center align-items-center">{realty.accRates ? realty.accRates.avgRate : 0}</div>
                     </div>
                 </div>
-                <h6 className="card-title fw-bold truncate-title">{realty.name}</h6>
+                <h6 className="card-title fw-bold ">{realty.name}</h6>
                 <div className="d-flex align-items-center text-muted mb-1 small">
                     <MapPin size={12} className="me-1" />
                     <span>{realty.district}</span>

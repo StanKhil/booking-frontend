@@ -42,7 +42,7 @@ export default function Login() {
       navigate("/");
     } catch (err) {
       console.error(err);
-      setError("Login failed. Please check your credentials.");
+      setError("Login failed. Please check your login and password.");
     }
   };
 

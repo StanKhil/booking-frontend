@@ -67,7 +67,7 @@ export default function Realty() {
             console.log("Booking created:", response);
         } catch (error) {
             console.error("Booking error:", error);
-            setMessage(error.status?.phrase || error.status?.message || "Booking failed.");
+            setMessage(error.data || "Booking failed.");
         }
     };
 
