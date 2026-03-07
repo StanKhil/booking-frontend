@@ -255,42 +255,6 @@ export default function HomePage() {
               <Link href="#" className="text-decoration-none text-primary fw-bold mt-3 d-inline-block">+ Show more</Link>
           </div>
       </div>
-          {/*
-          <div className="tab-pane fade show active tab-pane-scroll">
-          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3">
-            {[...Array(4)].map((_, col) => (
-              <div className="col" key={col}>
-                <ul className="list-unstyled">
-                  <li>
-                    <Link href="#" className="text-decoration-none text-dark">
-                      Kyiv hotels
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="text-decoration-none text-dark">
-                      Lviv hotels
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="text-decoration-none text-dark">
-                      Odesa hotels
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="text-decoration-none text-dark">
-                      Kharkiv hotels
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            ))}
-          </div>
-          <Link href="#" className="text-decoration-none text-primary fw-bold mt-3 d-inline-block">
-            + Show more
-          </Link>
-        </div>
-          */}
-        
       </section>
     </main>
   );
